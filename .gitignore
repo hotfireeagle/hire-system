@@ -55,7 +55,7 @@ yarn-error.log
 .idea
 # yarn.lock
 # package-lock.json
-pnpm-lock.yaml
+# pnpm-lock.yaml
 *bak
 
 
