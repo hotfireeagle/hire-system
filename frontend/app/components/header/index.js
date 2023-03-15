@@ -1,10 +1,20 @@
+import styles from "./index.module.css"
+
 const Header = () => {
+  const clickLogHandler = event => {
+    event.preventDefault()
+  }
+
+  const jumpToBms = event => {
+    event.preventDefault()
+  }
+
   return (
-    <header>
-      <div>JobsDB</div>
-      <div>
-        <a>Log in</a>
-        <a>Go to Employer site</a>
+    <header className={styles.headerContainer}>
+      <div className={styles.logoCls}>JobsDB</div>
+      <div className={styles.rightContainer}>
+        <a onClick={clickLogHandler} href="#" className={styles.logInCls}>Log in</a>
+        <a onClick={jumpToBms} href="#" className={styles.jumpCls}>Go to Employer site</a>
       </div>
     </header>
   )

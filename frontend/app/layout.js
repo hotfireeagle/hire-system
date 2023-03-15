@@ -11,9 +11,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="cn">
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <div className="systemPageContainer">
+          <Header />
+          <div className="bodyContainer">
+            {children}
+          </div>
+          <Footer />
+        </div>
       </body>
     </html>
   )

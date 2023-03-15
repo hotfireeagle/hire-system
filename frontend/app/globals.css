@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
 }
-body {
+.systemPageContainer {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.bodyContainer {
+  flex-grow: 1;
 }
