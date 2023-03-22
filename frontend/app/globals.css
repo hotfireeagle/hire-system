@@ -1,7 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .systemPageContainer {
   min-height: 100vh;
   display: flex;
