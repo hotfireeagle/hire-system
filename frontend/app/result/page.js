@@ -8,4 +8,11 @@ const SearchResult = () => {
   )
 }
 
+export const generateMetadata = async props => {
+  return {
+    title: "detail page",
+    description: "detail page for more content",
+  }
+}
+
 export default SearchResult
