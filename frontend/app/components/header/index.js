@@ -1,3 +1,4 @@
+"use client"
 import styles from "./index.module.css"
 
 const Header = () => {
