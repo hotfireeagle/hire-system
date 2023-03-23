@@ -1,4 +1,5 @@
 import Header from "@/components/header"
+import ClientQueryProvider from "@/components/clientQueryProvider"
 import "./globals.css"
 
 export const metadata = {
@@ -10,12 +11,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="cn">
       <body>
-        <div className="systemPageContainer">
-          <Header />
-          <div className="bodyContainer">
-            {children}
+        <ClientQueryProvider>
+          <div className="systemPageContainer">
+            <Header />
+            <div className="bodyContainer">
+              {children}
+            </div>
           </div>
-        </div>
+        </ClientQueryProvider>
       </body>
     </html>
   )

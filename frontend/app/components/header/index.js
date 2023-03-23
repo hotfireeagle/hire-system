@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header className={styles.headerContainer}>
-      <div className={styles.logoCls}>JobsDB</div>
+      <div className={styles.logoCls}>XXX</div>
       <div className={styles.rightContainer}>
         <a onClick={clickLogHandler} href="#" className={styles.logInCls}>Log in</a>
         <a onClick={jumpToBms} href="#" className={styles.jumpCls}>Go to Employer site</a>
