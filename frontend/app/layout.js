@@ -1,5 +1,5 @@
-import Header from "@/components/header"
-import ClientQueryProvider from "@/components/clientQueryProvider"
+import Header from "@/app/components/header"
+import ClientQueryProvider from "@/app/components/clientQueryProvider"
 import "./globals.css"
 
 export const metadata = {

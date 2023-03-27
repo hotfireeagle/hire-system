@@ -1,4 +1,4 @@
-import { sleep } from "@/utils"
+import { sleep } from "@/app/utils"
 
 export async function GET(request) {
   await sleep(6000)

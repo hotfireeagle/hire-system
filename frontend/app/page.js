@@ -1,6 +1,6 @@
 import styles from "./page.module.css"
-import Test from "@/components/test"
-import T2 from "@/components/t2"
+import Test from "@/app/components/test"
+import T2 from "@/app/components/t2"
 import { Suspense } from "react"
 
 
