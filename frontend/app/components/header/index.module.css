@@ -1,25 +1,38 @@
 .headerContainer {
   height: 50px;
+  border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
   padding: 0 20px;
 }
-.logoCls {
-  font-size: 24px;
-  color: #000;
-}
-.rightContainer {
+.itemCls {
   display: flex;
   align-items: center;
+  margin-right: 30px;
 }
-.logInCls {
-  text-decoration: none;
+.mr60 {
+  margin-right: 60px;
+}
+.flexgrow {
+  flex-grow: 1;
+}
+.logoSpanCls {
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  font-style: italic;
+}
+.black {
+  color: #000;
+}
+.mr0 {
+  margin-right: 0;
+}
+.subTitleCls {
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
-.jumpCls {
-  padding: 15px 20px;
-  border: 1px solid #000;
-  font-size: 15px;
+.subMr {
+  margin-right: 8px;
 }

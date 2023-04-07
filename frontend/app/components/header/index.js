@@ -1,24 +1,36 @@
-"use client"
 import styles from "./index.module.css"
 
-const Header = () => {
-  const clickLogHandler = event => {
-    event.preventDefault()
-  }
-
-  const jumpToBms = event => {
-    event.preventDefault()
-  }
-
+export default function Header() {
   return (
-    <header className={styles.headerContainer}>
-      <div className={styles.logoCls}>XXX</div>
-      <div className={styles.rightContainer}>
-        <a onClick={clickLogHandler} href="#" className={styles.logInCls}>Log in</a>
-        <a onClick={jumpToBms} href="#" className={styles.jumpCls}>Go to Employer site</a>
+    <div className={styles.headerContainer}>
+      <div className={`${styles.itemCls} ${styles.mr60}`}>
+        <span className={styles.logoSpanCls}>BIG</span>
+        <span className={`${styles.logoSpanCls} ${styles.black}`}>.</span>
+        <span className={`${styles.logoSpanCls} ${styles.black}`}>FE</span>
       </div>
-    </header>
+
+      <div className={styles.itemCls}>
+        <div className={`${styles.subTitleCls} ${styles.subMr}`}>Practice</div>
+      </div>
+
+      <div className={styles.itemCls}>
+        <div className={`${styles.subTitleCls} ${styles.subMr}`}>Prepare</div>
+      </div>
+
+      <div className={styles.itemCls}>
+        <div className={styles.subTitleCls}>Lists</div>
+      </div>
+
+      <div className={styles.itemCls}>
+        <div className={styles.subTitleCls}>Discuss</div>
+      </div>
+
+      <div className={styles.flexgrow}></div>
+
+      <div className={`${styles.itemCls} ${styles.mr0}`}>
+        <img className="w-5 rounded-full mr-2" src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
+        <div className={`${styles.subTitleCls} ${styles.subMr}`}>bighai</div>
+      </div>
+    </div>
   )
 }
-
-export default Header

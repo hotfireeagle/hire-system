@@ -1,5 +1,4 @@
-import styles from "./page.module.css"
-import Test from "@/app/components/test"
+// import styles from "./page.module.css"
 import T2 from "@/app/components/t2"
 import { Suspense } from "react"
 
@@ -13,21 +12,24 @@ async function fetchDetail() {
 }
 
 export default async function Home() {
-  // const parallPromise = Promise.all([fetchTest(), fetchDetail()])
-  // const [d1, d2] = await parallPromise
-  const d2 = fetchDetail()
-  const d1 = await fetchTest()
-
   return (
-    <div className={styles.container}>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <h1>{JSON.stringify(d1)}</h1>
-      {/* <Test /> */}
-      <Suspense fallback={<h1 style={{ color: "blue"}}>sssssss</h1>}>
-        <T2 data={d2} />
-      </Suspense>
+    <div>
+      {/* <button class="bg-[#1da1f2] text-white p-3 rounded-lg">Share on twitter</button> */}
     </div>
   )
+  // const d2 = fetchDetail()
+  // const d1 = await fetchTest()
+
+  // return (
+  //   <div className={styles.container}>
+  //     <h1 className="text-3xl font-bold underline">
+  //       Hello world!
+  //     </h1>
+  //     <h1>{JSON.stringify(d1)}</h1>
+  //     {/* <Test /> */}
+  //     <Suspense fallback={<h1 style={{ color: "blue"}}>sssssss</h1>}>
+  //       <T2 data={d2} />
+  //     </Suspense>
+  //   </div>
+  // )
 }
