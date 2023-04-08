@@ -2,9 +2,9 @@ CREATE DATABASE bfe;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NOT NULL,
-  `deletedAt` DATETIME,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
+  `deleted_at` DATETIME,
   `email` VARCHAR(200) UNIQUE NOT NULL,
   `password` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`id`)

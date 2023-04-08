@@ -8,4 +8,5 @@ func InitRouter(c *gin.Engine) {
 
 	userGroup := apiGroup.Group("/user")
 	userGroup.POST("/new", newUserRouter)
+	userGroup.GET("/list", fetchAllUserListRouter)
 }
