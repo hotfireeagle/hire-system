@@ -1,6 +1,5 @@
-// import styles from "./page.module.css"
-import T2 from "@/app/components/t2"
-import { Suspense } from "react"
+import T2 from "@/components/test"
+// import { Suspense } from "react"
 
 
 async function fetchTest() {
@@ -14,7 +13,7 @@ async function fetchDetail() {
 export default async function Home() {
   return (
     <div>
-      {/* <button class="bg-[#1da1f2] text-white p-3 rounded-lg">Share on twitter</button> */}
+      <T2 />
     </div>
   )
   // const d2 = fetchDetail()

@@ -28,7 +28,7 @@ export default function Header() {
       <div className={styles.flexgrow}></div>
 
       <div className={`${styles.itemCls} ${styles.mr0}`}>
-        <img className="w-5 rounded-full mr-2" src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
+        <img className={styles.avatarCls} src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
         <div className={`${styles.subTitleCls} ${styles.subMr}`}>bighai</div>
       </div>
     </div>
