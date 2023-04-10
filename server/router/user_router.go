@@ -79,6 +79,7 @@ func fetchUserDetailRouter(c *gin.Context) {
 	}
 
 	user, err := (&model.User{}).SelectUserByEmail(email)
+	user.Password = ""
 
 	if err != nil {
 		errRes(c, err.Error())

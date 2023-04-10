@@ -1,11 +1,18 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
-	gorm.Model
-	Email    string `gorm:"column:email;unique;not null" binding:"required"`
-	Password string `gorm:"column:password;not null" binding:"required"`
+	Id        uint           `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
+	CreatedAt time.Time      `gorm:"column:created_at;autoCreateTime" json:"createdAt"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;autoUpdateTime" json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;index" json:"deletedAt"`
+	Email     string         `gorm:"column:email;unique;not null" binding:"required" json:"email,omitempty"`
+	Password  string         `gorm:"column:password;not null" binding:"required" json:"password,omitempty"`
 }
 
 func (u User) TableName() string {
