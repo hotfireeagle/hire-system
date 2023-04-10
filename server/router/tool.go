@@ -16,7 +16,7 @@ func okRes(ctx *gin.Context, data interface{}) {
 
 func errRes(ctx *gin.Context, err string) {
 	res := model.Response{
-		Code: model.Success,
+		Code: model.Err,
 		Msg:  err,
 	}
 	ctx.JSON(200, res)

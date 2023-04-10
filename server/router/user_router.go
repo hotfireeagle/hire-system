@@ -16,7 +16,24 @@ func newUserRouter(c *gin.Context) {
 		errRes(c, err.Error())
 		return
 	}
-	okRes(c, result)
+
+	token, err := model.GenerateToken(result.ID)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, token)
+}
+
+func verifyTest(c *gin.Context) {
+	token := c.Param("token")
+	id, err := model.VerifyToken(token)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+	okRes(c, id)
 }
 
 func fetchAllUserListRouter(c *gin.Context) {
