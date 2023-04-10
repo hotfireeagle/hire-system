@@ -1,10 +1,10 @@
 "use client"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 
 export default function() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["test"],
-    queryFn: () => fetch("http://localhost:8080/api/user/list").then(res => {
+    queryFn: () => fetch("http://localhost:8081/api/user/list").then(res => {
       return res.json()
     })
   })

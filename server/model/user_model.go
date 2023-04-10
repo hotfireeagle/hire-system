@@ -17,11 +17,11 @@ func (u *User) InsertUser() (*User, error) {
 	return u, result.Error
 }
 
-func (u *User) SelectAllUser() (users []User, err error) {
-	return users, DB.Select("email").Find(&users).Error
-}
-
 // 根据邮箱找用户对象
 func (u *User) SelectUserByEmail(email string) (user User, err error) {
 	return user, DB.Where("email = ?", email).Find(&user).Error
+}
+
+func SelectUserById(uuid string) (user User, err error) {
+	return user, DB.Select("email").Where("id = ?", uuid).Find(&user).Error
 }

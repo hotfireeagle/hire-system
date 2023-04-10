@@ -1,4 +1,4 @@
-import T2 from "@/components/test"
+// import T2 from "@/components/test"
 // import { Suspense } from "react"
 
 
@@ -13,7 +13,8 @@ async function fetchDetail() {
 export default async function Home() {
   return (
     <div>
-      <T2 />
+      <h2>1</h2>
+      {/* <T2 /> */}
     </div>
   )
   // const d2 = fetchDetail()

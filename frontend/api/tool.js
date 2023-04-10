@@ -1,8 +1,7 @@
 import { getToken } from "@/util/localStorage"
-import { message } from "antd"
-import Router from "next/router"
+import { checkIsBrowser } from "@/util/"
 
-const base = "http://localhost:8080/api"
+const base = "http://localhost:8081/api"
 
 const Err = 0
 const NeedLogin = 2
@@ -13,24 +12,34 @@ const NeedLogin = 2
  * @returns 
  */
 const responsePipeline = response => {
-  console.log("response is >>>", response)
   if (response.code == NeedLogin) {
-    Router.push("/login")
+    if (checkIsBrowser()) {
+      location.href = "/login"
+    }
     return Promise.reject(response)
   } else if (response.code == Err) {
-    message.warning(response.msg)
     return Promise.reject(response)
   } else {
     return response.data
   }
 }
 
+// 返回请求方法的header对象
+function headerResolver() {
+  const token = getToken()
+  if (token) {
+    return {
+      token,
+    }
+  } else {
+    return {}
+  }
+}
+
 export function get(api) {
   return fetch(`${base}${api}`, {
     method: "GET",
-    headers: {
-      token: getToken(),
-    },
+    headers: headerResolver(),
   }).then(res => {
     return res.json()
   }).then(responsePipeline)
@@ -39,9 +48,7 @@ export function get(api) {
 export function post(api, postData) {
   return fetch(`${base}${api}`, {
     method: "POST",
-    headers: {
-      token: getToken(),
-    },
+    headers: headerResolver(),
     body: JSON.stringify(postData),
   }).then(res => {
     return res.json()

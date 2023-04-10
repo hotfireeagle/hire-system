@@ -1,4 +1,5 @@
 import styles from "./index.module.css"
+import DetailOrLogin from "./components/detailOrLogin"
 
 export default function Header() {
   return (
@@ -28,8 +29,9 @@ export default function Header() {
       <div className={styles.flexgrow}></div>
 
       <div className={`${styles.itemCls} ${styles.mr0}`}>
-        <img className={styles.avatarCls} src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
-        <div className={`${styles.subTitleCls} ${styles.subMr}`}>bighai</div>
+        <DetailOrLogin />
+        {/* <img className={styles.avatarCls} src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
+        <div className={`${styles.subTitleCls} ${styles.subMr}`}>bighai</div> */}
       </div>
     </div>
   )

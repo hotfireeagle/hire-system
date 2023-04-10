@@ -32,16 +32,6 @@ func newUserRouter(c *gin.Context) {
 	okRes(c, result)
 }
 
-// 获取所有的用户列表
-func fetchAllUserListRouter(c *gin.Context) {
-	userList, err := new(model.User).SelectAllUser()
-	if err != nil {
-		errRes(c, err.Error())
-		return
-	}
-	okRes(c, userList)
-}
-
 // 用户登录接口
 func userLoginRouter(c *gin.Context) {
 	userObj := new(model.User)
@@ -77,4 +67,18 @@ func userLoginRouter(c *gin.Context) {
 	}
 
 	okRes(c, token)
+}
+
+// fetch user detail data
+func fetchUserDetailRouter(c *gin.Context) {
+	uid := c.GetHeader("uuid")
+
+	user, err := model.SelectUserById(uid)
+
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, user)
 }
