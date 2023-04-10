@@ -14,7 +14,10 @@ const NeedLogin = 2
 const responsePipeline = response => {
   if (response.code == NeedLogin) {
     if (checkIsBrowser()) {
-      location.href = "/login"
+      if (!location.pathname.includes("/login")) {
+        // 非登录页面才跳转过去
+        location.href = "/login"
+      }
     }
     return Promise.reject(response)
   } else if (response.code == Err) {
