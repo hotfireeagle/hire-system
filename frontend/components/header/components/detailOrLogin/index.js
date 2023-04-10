@@ -6,6 +6,7 @@ export default function DetailOrLogin() {
   const { isLoading, data } = useQuery({
     queryKey: ["userDetail"],
     queryFn: userApi.detail,
+    refetchOnWindowFocus: false,
   })
 
   return (

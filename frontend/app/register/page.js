@@ -1,21 +1,16 @@
 "use client"
 import { useState } from "react"
-import { useQueryClient, useMutation } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { userApi } from "@/api/"
-import { setToken } from "@/util/localStorage"
 
 export default function LoginPage() {
-  const queryClient = useQueryClient()
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const submitMutation = useMutation({
-    mutationFn: userApi.login,
-    onSuccess: token => {
-      // TODO: 回到上一个页面
-      setToken(token)
-      queryClient.invalidateQueries({ queryKey: ["userDetail"] })
+  const registerMutation = useMutation({
+    mutationFn: userApi.register,
+    onSuccess: () => {
+      location.href = "/login"
     }
   })
 
@@ -24,9 +19,9 @@ export default function LoginPage() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Register your account</h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              <span href="#" className="font-medium text-indigo-600 hover:text-indigo-500 hover:cursor-pointer">Log in to use all features</span>
+              <span href="#" className="font-medium text-indigo-600 hover:text-indigo-500 hover:cursor-pointer">Register to use all features</span>
             </p>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST">
@@ -69,7 +64,7 @@ export default function LoginPage() {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+              <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Already have an account?</a>
             </div>
           </div>
 
@@ -77,7 +72,7 @@ export default function LoginPage() {
             <button
               onClick={(event) => {
                 event.preventDefault()
-                submitMutation.mutate({ email, password })
+                registerMutation.mutate({ email, password })
               }}
               className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
@@ -86,7 +81,7 @@ export default function LoginPage() {
                   <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
                 </svg>
               </span>
-              Sign in
+              Register
             </button>
           </div>
         </form>

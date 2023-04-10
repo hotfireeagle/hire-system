@@ -30,8 +30,6 @@ export default function Header() {
 
       <div className={`${styles.itemCls} ${styles.mr0}`}>
         <DetailOrLogin />
-        {/* <img className={styles.avatarCls} src="https://cdn.bfe.dev/bfe/img/3bbQRVOtMc6j6rBSnSLXuGOcrt2SfXQ2_968x968_1676391462596.jpeg" />
-        <div className={`${styles.subTitleCls} ${styles.subMr}`}>bighai</div> */}
       </div>
     </div>
   )

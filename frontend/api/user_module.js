@@ -9,7 +9,7 @@ export const userApi = {
   },
 
   register: function(data) {
-    return post("/user/register", data)
+    return post("/user/new", data)
   },
 
   detail: function() {

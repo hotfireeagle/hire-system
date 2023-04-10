@@ -2,7 +2,6 @@ package router
 
 import (
 	"bfe/model"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,7 +16,7 @@ func loginValidator() gin.HandlerFunc {
 			return
 		}
 
-		uid, err := model.VerifyToken(tokenString)
+		email, err := model.VerifyToken(tokenString)
 
 		if err != nil {
 			unLoginRes(c, err.Error())
@@ -25,7 +24,7 @@ func loginValidator() gin.HandlerFunc {
 			return
 		}
 
-		c.Header("uuid", strconv.FormatUint(uint64(uid), 10))
+		c.Set("email", email)
 
 		c.Next()
 	}

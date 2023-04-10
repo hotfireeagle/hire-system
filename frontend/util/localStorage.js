@@ -1,13 +1,21 @@
+import { checkIsBrowser } from "./index"
+
 const prefix = "fe_question_"
 
 export const getToken = () => {
-  return localStorage.getItem(`${prefix}token`)
+  if (checkIsBrowser()) {
+    return localStorage.getItem(`${prefix}token`)
+  }
 }
 
 export const setToken = token => {
-  localStorage.setItem(`${prefix}token`, token)
+  if (checkIsBrowser()) {
+    localStorage.setItem(`${prefix}token`, token)
+  }
 }
 
 export const removeToken = () => {
-  localStorage.removeItem(`${prefix}token`)
+  if (checkIsBrowser()) {
+    localStorage.removeItem(`${prefix}token`)
+  }
 }

@@ -60,7 +60,7 @@ func userLoginRouter(c *gin.Context) {
 		return
 	}
 
-	token, err := model.GenerateToken(dbUser.ID)
+	token, err := model.GenerateToken(dbUser.Email)
 	if err != nil {
 		errRes(c, err.Error())
 		return
@@ -71,9 +71,14 @@ func userLoginRouter(c *gin.Context) {
 
 // fetch user detail data
 func fetchUserDetailRouter(c *gin.Context) {
-	uid := c.GetHeader("uuid")
+	email := c.GetString("email")
 
-	user, err := model.SelectUserById(uid)
+	if email == "" {
+		okRes(c, model.User{})
+		return
+	}
+
+	user, err := (&model.User{}).SelectUserByEmail(email)
 
 	if err != nil {
 		errRes(c, err.Error())
