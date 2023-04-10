@@ -1,6 +1,8 @@
 import Header from "@//components/header"
 import ClientQueryProvider from "@/components/clientQueryProvider"
+import ToastContainerWrapper from "@/components/toastContainerWrapper"
 import "./globals.css"
+import "react-toastify/dist/ReactToastify.css"
 
 export const metadata = {
   title: "Create Next App",
@@ -18,6 +20,7 @@ export default function RootLayout({ children }) {
               {children}
             </div>
           </div>
+          <ToastContainerWrapper />
         </ClientQueryProvider>
       </body>
     </html>

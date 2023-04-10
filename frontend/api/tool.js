@@ -1,5 +1,6 @@
 import { getToken } from "@/util/localStorage"
 import { checkIsBrowser } from "@/util/"
+import { toast } from "react-toastify"
 
 const base = "http://localhost:8081/api"
 
@@ -21,6 +22,16 @@ const responsePipeline = response => {
     }
     return Promise.reject(response)
   } else if (response.code == Err) {
+    toast(response.msg, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     return Promise.reject(response)
   } else {
     return response.data
