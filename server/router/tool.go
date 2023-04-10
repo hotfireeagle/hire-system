@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 业务逻辑运行正常时的响应数据
 func okRes(ctx *gin.Context, data interface{}) {
 	res := model.Response{
 		Code: model.Success,
@@ -14,9 +15,19 @@ func okRes(ctx *gin.Context, data interface{}) {
 	ctx.JSON(200, res)
 }
 
+// 业务逻辑运行错误时的响应数据
 func errRes(ctx *gin.Context, err string) {
 	res := model.Response{
 		Code: model.Err,
+		Msg:  err,
+	}
+	ctx.JSON(200, res)
+}
+
+// 业务逻辑运行未授权时的响应数据
+func unLoginRes(ctx *gin.Context, err string) {
+	res := model.Response{
+		Code: model.NeedLogin,
 		Msg:  err,
 	}
 	ctx.JSON(200, res)

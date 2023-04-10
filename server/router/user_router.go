@@ -7,6 +7,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// 用户注册接口
 func newUserRouter(c *gin.Context) {
 	user := new(model.User)
 	if validate(c, user) != nil {
@@ -22,30 +23,16 @@ func newUserRouter(c *gin.Context) {
 	user.Password = string(resultByte)
 
 	result, err := user.InsertUser()
+	result.Password = ""
 	if err != nil {
 		errRes(c, err.Error())
 		return
 	}
 
-	token, err := model.GenerateToken(result.ID)
-	if err != nil {
-		errRes(c, err.Error())
-		return
-	}
-
-	okRes(c, token)
+	okRes(c, result)
 }
 
-func verifyTest(c *gin.Context) {
-	token := c.Param("token")
-	id, err := model.VerifyToken(token)
-	if err != nil {
-		errRes(c, err.Error())
-		return
-	}
-	okRes(c, id)
-}
-
+// 获取所有的用户列表
 func fetchAllUserListRouter(c *gin.Context) {
 	userList, err := new(model.User).SelectAllUser()
 	if err != nil {
@@ -55,6 +42,7 @@ func fetchAllUserListRouter(c *gin.Context) {
 	okRes(c, userList)
 }
 
+// 用户登录接口
 func userLoginRouter(c *gin.Context) {
 	userObj := new(model.User)
 
@@ -82,5 +70,11 @@ func userLoginRouter(c *gin.Context) {
 		return
 	}
 
-	okRes(c, dbUser)
+	token, err := model.GenerateToken(dbUser.ID)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, token)
 }
