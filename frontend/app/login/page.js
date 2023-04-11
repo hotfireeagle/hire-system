@@ -13,7 +13,8 @@ export default function LoginPage() {
   const submitMutation = useMutation({
     mutationFn: userApi.login,
     onSuccess: token => {
-      // TODO: 回到上一个页面
+      // TODO: 回到上一个页面，而非固定回首页
+      location.href = "/"
       setToken(token)
       queryClient.invalidateQueries({ queryKey: ["userDetail"] })
     }

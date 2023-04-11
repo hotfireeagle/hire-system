@@ -11,7 +11,7 @@ export default function DetailOrLogin() {
 
   return (
     <div className={isLoading ? "animate-pulse" : ""}>
-      {JSON.stringify(data)}
+      { data?.email }
     </div>
   )
 }
