@@ -15,6 +15,16 @@ const NeedLogin = 2
 const responsePipeline = response => {
   if (response.code == NeedLogin) {
     if (checkIsBrowser()) {
+      toast("请先登录", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
       if (!location.pathname.includes("/login")) {
         // 非登录页面才跳转过去
         location.href = "/login"
@@ -31,7 +41,7 @@ const responsePipeline = response => {
       draggable: true,
       progress: undefined,
       theme: "light",
-    });
+    })
     return Promise.reject(response)
   } else {
     return response.data

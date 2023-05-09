@@ -29,6 +29,6 @@ func (u *User) SelectUserByEmail(email string) (user User, err error) {
 	return user, DB.Where("email = ?", email).Find(&user).Error
 }
 
-func SelectUserById(uuid string) (user User, err error) {
-	return user, DB.Select("email").Where("id = ?", uuid).Find(&user).Error
+func SelectUserById(id string) (user User, err error) {
+	return user, DB.Select("email").Where("id = ?", id).Find(&user).Error
 }
