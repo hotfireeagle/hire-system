@@ -1,7 +1,7 @@
 package router
 
 import (
-	"bfe/model"
+	"hire/model"
 
 	"github.com/gin-gonic/gin"
 )

@@ -24,7 +24,7 @@ func init() {
 	domain := os.Getenv("MYSQL_DOMAIN")
 	port := os.Getenv("MYSQL_PORT")
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/bfe?charset=utf8mb4&parseTime=True&loc=Local", user, password, domain, port)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/hire?charset=utf8mb4&parseTime=True&loc=Local", user, password, domain, port)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode((logger.Info)),

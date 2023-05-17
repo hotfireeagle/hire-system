@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bfe/router"
+	"hire/router"
 	"time"
 
 	"github.com/gin-contrib/cors"
