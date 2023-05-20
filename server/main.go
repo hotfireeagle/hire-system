@@ -22,5 +22,5 @@ func main() {
 
 	router.InitRouter(r)
 
-	r.Run(":8081") // default is 8080
+	r.Run(":8081")
 }
