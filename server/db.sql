@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS `users_to_roles` (
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) UNIQUE NOT NULL,
-  `parentId` INT,
-  `endpoint` VARCHAR(200) UNIQUE NOT NULL,
-  `method` VARCHAR(16) NOT NULL,
+  `parent_id` INT,
+  `endpoint` VARCHAR(200),
+  `method` VARCHAR(16),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

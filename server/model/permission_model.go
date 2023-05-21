@@ -8,6 +8,10 @@ type Permission struct {
 	Method   string `gorm:"column:method;not null" json:"method"`     // get、post、patch、delete...
 }
 
+type QueryPermissionListRequestParam struct {
+	Name string `json:"name"`
+}
+
 func (p Permission) TableName() string {
 	return "permission"
 }
@@ -18,19 +22,50 @@ func FindPermissionByPermissionName(name string) (*Permission, error) {
 	return &p, err
 }
 
-func NewPermission(name string, parentPermissionName string, api string, httpMethod string) {
+// 新建一个权限, parentPermissionName非必传, 不传的话即表示不存在上级权限
+func newPermission(name string, parentPermissionName string, api string, httpMethod string) {
+	dbPermission := new(Permission)
+	err := DB.Where("name = ?", name).Find(dbPermission).Limit(1).Error
+	if err != nil {
+		panic(err)
+	}
+
 	permissionObj := Permission{
 		Name:     name,
 		Endpoint: api,
 		Method:   httpMethod,
 	}
-
 	if parentPermissionName != "" {
 		parentPermissionObj, err := FindPermissionByPermissionName(parentPermissionName)
 		if err != nil {
-			permissionObj.ParentId = parentPermissionObj.Id
+			panic(err)
 		}
+		permissionObj.ParentId = parentPermissionObj.Id
 	}
 
-	DB.Create(permissionObj)
+	if dbPermission.Id != 0 {
+		// 做update的操作
+		temp := make(map[string]interface{})
+		temp["name"] = permissionObj.Name
+		temp["parent_id"] = permissionObj.ParentId
+		temp["endpoint"] = permissionObj.Endpoint
+		temp["method"] = permissionObj.Method
+		DB.Model(dbPermission).Updates(temp)
+	} else {
+		// 做创建的操作
+		DB.Create(&permissionObj)
+	}
+}
+
+// 查询出所有的权限列表数据
+func SelectPermissionList(queryData *QueryPermissionListRequestParam) (*[]Permission, error) {
+	var permissionList []Permission
+
+	tx := DB.Model(&Permission{}).Select("id", "name", "parent_id")
+
+	if queryData.Name != "" {
+		tx = tx.Where("name = ?", queryData.Name)
+	}
+
+	return &permissionList, tx.Find(&permissionList).Error
 }
