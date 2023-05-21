@@ -14,7 +14,7 @@ func (p Permission) TableName() string {
 
 func FindPermissionByPermissionName(name string) (*Permission, error) {
 	var p Permission
-	err := DB.Where("name = ?", name).Take(&p).Error
+	err := DB.Where("name = ?", name).First(&p).Error
 	return &p, err
 }
 

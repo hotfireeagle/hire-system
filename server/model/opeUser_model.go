@@ -25,3 +25,8 @@ func NewOpeUser(opeUserObj *OpeUser) error {
 	err := DB.Create(&opeUserObj).Error
 	return err
 }
+
+// 根据邮箱查找出后台用户
+func FindOpeUserByEmail(email string) (user *OpeUser, err error) {
+	return user, DB.Where("email = ?", email).First(&user).Error
+}
