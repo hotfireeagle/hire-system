@@ -27,5 +27,5 @@ func InitRouter(c *gin.Engine) {
 	permissionGroup := opeGroup.Group("/permission")
 	permissionGroup.POST("/role/list", getRoleListRouter)
 	permissionGroup.POST("/role/new", newRoleRouter)
-	permissionGroup.POST("/tree", getPermissionTreeRouter)
+	permissionGroup.GET("/tree", getPermissionTreeRouter)
 }

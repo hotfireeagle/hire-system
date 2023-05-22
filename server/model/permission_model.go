@@ -8,8 +8,17 @@ type Permission struct {
 	Method   string `gorm:"column:method;not null" json:"method"`     // get、post、patch、delete...
 }
 
+// 查看权限树时的请求参数
 type QueryPermissionListRequestParam struct {
 	Name string `json:"name"`
+}
+
+// 查看权限树的返回数据
+type QueryPermissionTreeResponseData struct {
+	Id       uint                                `json:"id"`
+	Name     string                              `json:"name"`
+	ParentId uint                                `json:"parentId"`
+	Children *[]*QueryPermissionTreeResponseData `json:"children"`
 }
 
 func (p Permission) TableName() string {
