@@ -19,10 +19,6 @@ func InitRouter(c *gin.Engine) {
 	opeUserGroup.POST("/new", opeUserRegisterRouter)
 	opeUserGroup.POST("/login", opeUserLoginRouter)
 
-	// 后台管理的角色模块
-	roleGroup := opeGroup.Group("/role")
-	roleGroup.POST("/list")
-
 	// 后台管理权限模块
 	permissionGroup := opeGroup.Group("/permission")
 	permissionGroup.POST("/role/list", getRoleListRouter)
