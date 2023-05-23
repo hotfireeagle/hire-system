@@ -18,6 +18,7 @@ func InitRouter(c *gin.Engine) {
 	opeUserGroup := opeGroup.Group("/user")
 	opeUserGroup.POST("/new", opeUserRegisterRouter)
 	opeUserGroup.POST("/login", opeUserLoginRouter)
+	opeUserGroup.GET("/detail", loginValidator(), opeUserFetchDetailRouter)
 
 	// 后台管理权限模块
 	permissionGroup := opeGroup.Group("/permission", loginValidator())

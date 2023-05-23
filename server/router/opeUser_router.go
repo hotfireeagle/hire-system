@@ -60,6 +60,7 @@ func opeUserLoginRouter(c *gin.Context) {
 }
 
 // 后台用户利用token查询详情信息
-func opeUserFetchDetail(c *gin.Context) {
-
+func opeUserFetchDetailRouter(c *gin.Context) {
+	email := c.GetString("email")
+	okRes(c, email)
 }
