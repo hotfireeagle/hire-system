@@ -58,3 +58,8 @@ func opeUserLoginRouter(c *gin.Context) {
 
 	okRes(c, token)
 }
+
+// 后台用户利用token查询详情信息
+func opeUserFetchDetail(c *gin.Context) {
+
+}

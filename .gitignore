@@ -68,6 +68,7 @@ functions/*
 # umi
 .umi
 .umi-production
+.umi-test
 
 # screenshot
 screenshot

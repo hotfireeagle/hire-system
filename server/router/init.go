@@ -20,7 +20,7 @@ func InitRouter(c *gin.Engine) {
 	opeUserGroup.POST("/login", opeUserLoginRouter)
 
 	// 后台管理权限模块
-	permissionGroup := opeGroup.Group("/permission")
+	permissionGroup := opeGroup.Group("/permission", loginValidator())
 	permissionGroup.POST("/role/list", getRoleListRouter)
 	permissionGroup.POST("/role/new", newRoleRouter)
 	permissionGroup.GET("/tree", getPermissionTreeRouter)
