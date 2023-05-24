@@ -23,7 +23,7 @@ export default [
     ],
   },
   {
-    path: "/hompage",
+    path: "/homepage",
     name: "首页",
     icon: "smile",
     component: "./homepage",

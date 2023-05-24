@@ -1,7 +1,7 @@
 import { SettingDrawer } from "@ant-design/pro-components"
 import { history } from "@umijs/max"
 import defaultSettings from "../config/defaultSettings"
-import request from "@/utils/request"
+import { getToken } from "@/utils/localStorage"
 
 const loginPath = "/user/login"
 
@@ -9,28 +9,7 @@ const loginPath = "/user/login"
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState() {
-  const fetchUserInfo = async () => {
-    try {
-      const data = await request("/user/detail", {}, "get")
-      return data
-    } catch (error) {
-      history.push(loginPath)
-    }
-    return undefined
-  }
-
-  // 如果不是登录页面，执行
-  const { location } = history
-  if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo()
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings,
-    }
-  }
   return {
-    fetchUserInfo,
     settings: defaultSettings,
   }
 }
@@ -40,14 +19,10 @@ export const layout = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [],
     avatarProps: {},
-    waterMarkProps: {
-      content: initialState?.currentUser?.name,
-    },
     footerRender: () => null,
     onPageChange: () => {
-      const { location } = history
-      // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      const token = getToken()
+      if (!token && location.pathname !== loginPath) {
         history.push(loginPath)
       }
     },
@@ -77,7 +52,6 @@ export const layout = ({ initialState, setInitialState }) => {
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
     childrenRender: (children) => {
-      // if (initialState?.loading) return <PageLoading />
       return (
         <>
           {children}
