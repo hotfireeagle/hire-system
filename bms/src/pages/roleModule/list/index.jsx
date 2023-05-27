@@ -2,9 +2,9 @@
  * 角色列表数据
  */
 import { PageContainer } from "@ant-design/pro-components"
-import TablePro from "@/components/tablePro"
-import { Button } from "antd"
+import { Button, Card } from "antd"
 import { history } from "@umijs/max"
+import SearchList from "@/components/searchList"
 
 const RoleList = () => {
   const roleTableColumns = [
@@ -31,12 +31,14 @@ const RoleList = () => {
 
   return (
     <PageContainer>
-      <TablePro
-        url="/permission/role/list"
-        columns={roleTableColumns}
-      >
-        <Button onClick={jumpToNewRolePage} type="primary">新增角色</Button>
-      </TablePro>
+      <Card>
+        <SearchList
+          url="/permission/role/list"
+          tableColumns={roleTableColumns}
+        >
+          <Button onClick={jumpToNewRolePage} type="primary">新增角色</Button>
+        </SearchList>
+      </Card>
     </PageContainer>
   )
 }
