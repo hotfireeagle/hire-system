@@ -3,6 +3,8 @@
  */
 import { PageContainer } from "@ant-design/pro-components"
 import TablePro from "@/components/tablePro"
+import { Button } from "antd"
+import { history } from "@umijs/max"
 
 const RoleList = () => {
   const roleTableColumns = [
@@ -23,12 +25,18 @@ const RoleList = () => {
     }
   ]
 
+  const jumpToNewRolePage = () => {
+    history.push("/permissionModule/role/new")
+  }
+
   return (
     <PageContainer>
       <TablePro
         url="/permission/role/list"
         columns={roleTableColumns}
-      />
+      >
+        <Button onClick={jumpToNewRolePage} type="primary">新增角色</Button>
+      </TablePro>
     </PageContainer>
   )
 }

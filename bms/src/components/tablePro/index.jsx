@@ -21,13 +21,12 @@ const TablePro = props => {
     <ProTable
       request={requestFunction}
       columns={props.columns}
-    >
-
-    </ProTable>
+      toolBarRender={() => props.children}
+    />
   )
 }
 
-TableProp.propTypes = {
+TablePro.propTypes = {
   url: PropTypes.string, // table的列表数据接口
   columns: PropTypes.array, // table的columns配置数据
 }

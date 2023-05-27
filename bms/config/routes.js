@@ -41,6 +41,12 @@ export default [
         access: "角色管理",
       },
       {
+        path: "/permissionModule/role/new",
+        name: "新增角色",
+        component: "./roleModule/form",
+        hideInMenu: true,
+      },
+      {
         path: "/permissionModule/account",
         name: "成员管理",
         component: "./roleModule/list",
