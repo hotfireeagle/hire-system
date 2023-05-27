@@ -1,0 +1,31 @@
+.rowCls, .activeRow {
+  display: flex;
+  align-items: center;
+  min-width: 180px;
+  box-sizing: border-box;
+  padding-left: 6px;
+  padding-right: 2px;
+  cursor: pointer;
+}
+.row2Cls {
+  margin-left: 15px;
+  justify-content: space-between;
+}
+.activeRow {
+  background: rgba(86,87,88,0.04);
+  color: #0687FD;
+}
+.flexc {
+  display: flex;
+  align-items: center;
+}
+.cardContainer {
+  display: flex;
+  align-items: center;
+  :global {
+    .ant-card {
+      margin-right: 10px;
+      min-height: 360px;
+    }
+  }
+}

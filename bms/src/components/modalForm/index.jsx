@@ -2,7 +2,7 @@ import { Button, Form } from "antd"
 import { Modal } from "antd" // 用antd版本的modal的话，弹窗只能打开，但是不能关闭
 import PropTypes from "prop-types"
 import { useEffect, useState } from "react"
-import { FormItemHook } from "../formItem"
+import { FormItem } from "../formItem"
 
 const defaultFormItemLayout = {
   labelCol: { span: 5 },
@@ -71,7 +71,7 @@ const ModalForm = (props) => {
       ]}
     >
       <Form {...formItemLayout} form={formInstance}>
-        <FormItemHook list={props.formList} span={24} />
+        <FormItem list={props.formList} span={24} />
       </Form>
     </Modal>
   )

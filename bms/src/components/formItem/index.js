@@ -23,6 +23,7 @@ const { Option } = Select
 const { RangePicker } = DatePicker
 const { TextArea } = Input
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons"
+import PermissionDFSTree from "./unit/permissionTree"
 
 const { SHOW_PARENT } = TreeSelect
 const type = {
@@ -413,6 +414,16 @@ const renderFormList = (v, { span, flex }) => {
     </Col>
   )
 }
+
+const permissionTreeElem = (v, form) => {
+  const apl = v?.list || []; // 当前角色所拥有的所有权限
+  return (
+    <RenderShell v={v} form={form} key={v.key}>
+      <PermissionDFSTree allPermissionList={apl} />
+    </RenderShell>
+  )
+}
+
 const renderFormItem = (list, form) => {
   if (!list?.length) return
   let formList = []
@@ -420,6 +431,10 @@ const renderFormItem = (list, form) => {
     if (item.hide) {
       return
     } else {
+      if (item.type === "permissionTree") {
+        // 权限联动穿梭框组件
+        formList.push(permissionTreeElem(item, form))
+      }
       if (item.type === "input") {
         formList.push(inputElem(item, form))
       }
@@ -473,7 +488,7 @@ const renderFormItem = (list, form) => {
   return formList
 }
 
-export const FormItemHook = ({ list, getFieldDecorator, span = 8, flex = false }) => {
+export const FormItem = ({ list, getFieldDecorator, span = 8, flex = false }) => {
   return (
     <Row type={flex ? "flex" : undefined}>
       {renderFormItem(list, { getFieldDecorator, span, flex })}
