@@ -1,6 +1,6 @@
 import axios from "axios"
 import { message } from "antd"
-import { removeToken, getToken } from "./localStorage"
+import { tokenDB } from "./localStorage"
 
 const client = axios.create({
   baseURL: "/api/ope",
@@ -22,7 +22,7 @@ client.interceptors.response.use((response) => {
     if (!window.location.pathname.includes(loginRoute)) {
       message.error(msg || "登录失败！请重新登录")
       history.replace(loginRoute)
-      removeToken()
+      tokenDB.remove()
     }
     return Promise.reject(res)
   }
@@ -45,7 +45,7 @@ client.interceptors.response.use((response) => {
  */
 export default async function request(url, value = {}, method = "post", options = {}) {
   method = method.toLowerCase()
-  let token = getToken()
+  let token = tokenDB.get()
   const headers = {
     token,
   }

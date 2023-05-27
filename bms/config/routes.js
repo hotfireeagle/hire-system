@@ -29,6 +29,25 @@ export default [
     component: "./homepage",
   },
   {
+    path: "/permissionModule",
+    name: "权限管理",
+    icon: "safety",
+    access: "权限管理",
+    routes: [
+      {
+        path: "/permissionModule/role",
+        name: "角色管理",
+        component: "./roleModule/list",
+        access: "角色管理",
+      },
+      {
+        path: "/permissionModule/account",
+        name: "成员管理",
+        component: "./roleModule/list",
+      }
+    ],
+  },
+  {
     path: "/",
     redirect: "/homepage",
   },

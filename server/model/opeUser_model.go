@@ -20,6 +20,10 @@ func (o OpeUser) TableName() string {
 	return "ope_user"
 }
 
+func (o OpeUser) CheckIsRoot() bool {
+	return o.Email == "root"
+}
+
 // 创建一个后台用户
 func NewOpeUser(opeUserObj *OpeUser) error {
 	err := DB.Create(&opeUserObj).Error
@@ -29,4 +33,9 @@ func NewOpeUser(opeUserObj *OpeUser) error {
 // 根据邮箱查找出后台用户
 func FindOpeUserByEmail(email string) (user *OpeUser, err error) {
 	return user, DB.Where("email = ?", email).First(&user).Error
+}
+
+// 通过Limit(1)+Find形式查找用户
+func FindOpeUserByEmailButNoNotFoundError(email string) (user OpeUser, err error) {
+	return user, DB.Where("email = ?", email).Limit(1).Find(&user).Error
 }

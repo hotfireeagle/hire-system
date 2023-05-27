@@ -14,12 +14,8 @@ const remove = key => {
   localStorage.removeItem(k2)
 }
 
-export const saveToken = token => {
-  put("token", token)
+export const tokenDB = {
+  put: token => put("token", token),
+  get: () => get("token"),
+  remove: () => remove("token"),
 }
-
-export const removeToken = () => {
-  remove("token")
-}
-
-export const getToken = () => get("token")

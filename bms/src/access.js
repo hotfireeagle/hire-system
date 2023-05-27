@@ -2,8 +2,8 @@
  * @see https://umijs.org/zh-CN/plugins/plugin-access
  * */
 export default function access(initialState) {
-  const { currentUser } = initialState ?? {}
-  return {
-    canAdmin: currentUser && currentUser.access === "admin",
-  }
+  const permissionStrList = initialState?.permissions || []
+  const obj = {}
+  permissionStrList.forEach(v => obj[v] = true)
+  return obj
 }

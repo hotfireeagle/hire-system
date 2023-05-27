@@ -2,7 +2,7 @@ import { Card } from "antd"
 import { LoginForm, ProFormText } from "@ant-design/pro-components"
 import { UserOutlined, LockOutlined, } from "@ant-design/icons"
 import request from "@/utils/request"
-import { saveToken } from "@/utils/localStorage"
+import { tokenDB } from "@/utils/localStorage"
 import { history } from "@umijs/max"
 
 const LoginPage = () => {
@@ -13,8 +13,7 @@ const LoginPage = () => {
   const loginHandler = values => {
     const postData = { ...values }
     return request("/user/login", postData, "post").then(token => {
-      // TODO: 这个接口还得返回权限列表数据
-      saveToken(token)
+      tokenDB.put(token)
       setTimeout(() => {
         history.push("/")
       }, 300)

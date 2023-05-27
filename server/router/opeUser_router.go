@@ -62,5 +62,30 @@ func opeUserLoginRouter(c *gin.Context) {
 // 后台用户利用token查询详情信息
 func opeUserFetchDetailRouter(c *gin.Context) {
 	email := c.GetString("email")
+
+	dbUser, err := model.FindOpeUserByEmail(email)
+
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	if dbUser.CheckIsRoot() {
+		permissions, err := model.SelectPermissionList(&model.QueryPermissionListRequestParam{})
+		if err != nil {
+			errRes(c, err.Error())
+			return
+		}
+
+		var strPermission []string
+		for _, permissionObj := range *permissions {
+			strPermission = append(strPermission, permissionObj.Name)
+		}
+
+		okRes(c, strPermission)
+		return
+	}
+
+	// TODO: 普通用户查找其权限
 	okRes(c, email)
 }
