@@ -4,13 +4,15 @@ import "time"
 
 // 角色表
 type Role struct {
-	Id         uint      `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
-	CreateTime time.Time `gorm:"column:create_time;autoCreateTime" json:"createTime"`
-	UpdateTime time.Time `gorm:"column:update_time;autoUpdateTime" json:"updateTime,omitempty"`
-	DeleteTime time.Time `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
-	Name       string    `gorm:"column:name;not null" binding:"required" json:"name"`
-	Desc       string    `gorm:"column:desc" binding:"required" json:"desc"`
-	CreatorId  uint      `gorm:"column:creator_id;not null" binding:"required" json:"creatorId"`
+	Id         uint         `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
+	CreateTime time.Time    `gorm:"column:create_time;autoCreateTime" json:"createTime"`
+	UpdateTime time.Time    `gorm:"column:update_time;autoUpdateTime" json:"updateTime,omitempty"`
+	DeleteTime time.Time    `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
+	Name       string       `gorm:"column:name;unique;not null" binding:"required" json:"name"`
+	Desc       string       `gorm:"column:desc" binding:"required" json:"desc"`
+	CreatorId  uint         `gorm:"column:creator_id;not null" binding:"required" json:"creatorId"`
+	OpeUsers   []OpeUser    `gorm:"many2many:opeusers_to_roles"`
+	Permission []Permission `gorm:"many2many:permissions_to_roles"`
 }
 
 type QueryRoleListReqeustBody struct {
@@ -22,10 +24,6 @@ type QueryRoleListReqeustBody struct {
 type QueryRoleListResponseBody struct {
 	List  []Role `json:"list"`
 	Total int64  `json:"total"`
-}
-
-func (r Role) TableName() string {
-	return "role"
 }
 
 // 查询角色列表数据

@@ -14,10 +14,7 @@ type OpeUser struct {
 	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
 	Email      string         `gorm:"column:email;unique;not null" binding:"required" json:"email,omitempty"`
 	Password   string         `gorm:"column:password;not null" binding:"required" json:"password,omitempty"`
-}
-
-func (o OpeUser) TableName() string {
-	return "ope_user"
+	Roles      []Role         `gorm:"many2many:opeusers_to_roles"`
 }
 
 func (o OpeUser) CheckIsRoot() bool {

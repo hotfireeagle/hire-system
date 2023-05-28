@@ -2,10 +2,11 @@ package model
 
 type Permission struct {
 	Id       uint   `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
-	Name     string `gorm:"column:name;not null" json:"name"`         // permission name
+	Name     string `gorm:"column:name;unique;not null" json:"name"`  // permission name
 	ParentId uint   `gorm:"column:parent_id;" json:"parentId"`        // parent permission id, just for frontend show the permission tree
 	Endpoint string `gorm:"column:endpoint;not null" json:"endpoint"` // api path
 	Method   string `gorm:"column:method;not null" json:"method"`     // get、post、patch、delete...
+	Roles    []Role `gorm:"many2many:permissions_to_roles"`
 }
 
 // 查看权限树时的请求参数
@@ -19,10 +20,6 @@ type QueryPermissionTreeResponseData struct {
 	Name     string                              `json:"name"`
 	ParentId uint                                `json:"parentId"`
 	Children *[]*QueryPermissionTreeResponseData `json:"children"`
-}
-
-func (p Permission) TableName() string {
-	return "permission"
 }
 
 func FindPermissionByPermissionName(name string) (*Permission, error) {
