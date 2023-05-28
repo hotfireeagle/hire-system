@@ -498,7 +498,7 @@ const SearchList = props => {
     if (Object.prototype.toString.call(res) === "[object Array]") {
       dataArr = res
     } else {
-      dataArr = res?.records || []
+      dataArr = res?.list || []
     }
     return dataArr
   }
@@ -609,12 +609,6 @@ const SearchList = props => {
           ) : null}
         </div>
       ) : null}
-      {/* <ReactDragListView
-        onDragEnd={onDragHandler}
-        handleSelector={
-          props?.tableDrag?.handleSelector || "span[aria-label="menu"]"
-        }
-      > */}
       <Table
         scroll={props.scroll}
         columns={tableColumnsFactory()}

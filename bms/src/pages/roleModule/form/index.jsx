@@ -1,7 +1,8 @@
 import { PageContainer } from "@ant-design/pro-components"
 import { FormItem } from "@/components/formItem"
-import { Form, Card, Button, Row, Col } from "antd"
+import { Form, Card, Button, Row, Col, message } from "antd"
 import { useFetch } from "@/hooks/useFetch"
+import request from "@/utils/request"
 
 const RoleForm = () => {
   const [formInstance] = Form.useForm()
@@ -36,7 +37,10 @@ const RoleForm = () => {
 
   const submitHandler = async () => {
     const values = await formInstance.validateFields()
-    console.warn("values is >>>>", values)
+    request("/permission/role/new", values).then(() => {
+      message.success("操作成功")
+      history.back()
+    })
   }
 
   return (

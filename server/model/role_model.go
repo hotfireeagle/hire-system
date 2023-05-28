@@ -1,18 +1,28 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 // 角色表
 type Role struct {
-	Id         uint         `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
-	CreateTime time.Time    `gorm:"column:create_time;autoCreateTime" json:"createTime"`
-	UpdateTime time.Time    `gorm:"column:update_time;autoUpdateTime" json:"updateTime,omitempty"`
-	DeleteTime time.Time    `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
-	Name       string       `gorm:"column:name;unique;not null" binding:"required" json:"name"`
-	Desc       string       `gorm:"column:desc" binding:"required" json:"desc"`
-	CreatorId  uint         `gorm:"column:creator_id;not null" binding:"required" json:"creatorId"`
-	OpeUsers   []OpeUser    `gorm:"many2many:opeusers_to_roles"`
-	Permission []Permission `gorm:"many2many:permissions_to_roles"`
+	Id          uint           `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
+	CreateTime  time.Time      `gorm:"column:create_time;autoCreateTime" json:"createTime"`
+	UpdateTime  time.Time      `gorm:"column:update_time;autoUpdateTime" json:"updateTime,omitempty"`
+	DeleteTime  gorm.DeletedAt `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
+	Name        string         `gorm:"column:name;unique;not null" binding:"required" json:"name"`
+	Desc        string         `gorm:"column:desc" binding:"required" json:"desc"`
+	CreatorId   uint           `gorm:"column:creator_id;not null" binding:"required" json:"creatorId"`
+	OpeUsers    []OpeUser      `gorm:"many2many:opeusers_to_roles"`
+	Permissions []Permission   `gorm:"many2many:permissions_to_roles"`
+}
+
+type NewRoleRequestBody struct {
+	Name        string `json:"name" binding:"required"`
+	Desc        string `json:"desc" binding:"required"`
+	Permissions []uint `json:"permissions" binding:"required"`
 }
 
 type QueryRoleListReqeustBody struct {
@@ -57,6 +67,24 @@ func SelectRoleList(queryData *QueryRoleListReqeustBody) (QueryRoleListResponseB
 }
 
 // 新增一个角色
-func NewRole(data *Role) error {
-	return DB.Create(data).Error
+func NewRole(data *NewRoleRequestBody) error {
+	permissions, err := FindPermissionListByIdList(data.Permissions)
+	if err != nil {
+		return err
+	}
+
+	roleObj := &Role{
+		Name:        data.Name,
+		Desc:        data.Desc,
+		Permissions: permissions,
+	}
+
+	for _, perm := range permissions {
+		_, err = casbinEnforcer.AddPolicy(data.Name, perm.Endpoint, perm.Method)
+	}
+	err = DB.Create(roleObj).Error
+
+	// TODO: 事务
+
+	return err
 }

@@ -15,10 +15,6 @@ type User struct {
 	Password  string         `gorm:"column:password;not null" binding:"required" json:"password,omitempty"`
 }
 
-func (u User) TableName() string {
-	return "user"
-}
-
 func (u *User) InsertUser() (*User, error) {
 	result := DB.Create(u)
 	return u, result.Error

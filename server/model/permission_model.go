@@ -75,3 +75,11 @@ func SelectPermissionList(queryData *QueryPermissionListRequestParam) (*[]Permis
 
 	return &permissionList, tx.Find(&permissionList).Error
 }
+
+func FindPermissionById(id uint) (p Permission, err error) {
+	return p, DB.Find(&p).Where("id = ?", id).Error
+}
+
+func FindPermissionListByIdList(ids []uint) (users []Permission, err error) {
+	return users, DB.Find(&users, ids).Error
+}

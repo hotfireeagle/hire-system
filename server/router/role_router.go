@@ -22,7 +22,7 @@ func getRoleListRouter(c *gin.Context) {
 }
 
 func newRoleRouter(c *gin.Context) {
-	roleObj := new(model.Role)
+	roleObj := new(model.NewRoleRequestBody)
 	if validate(c, roleObj) != nil {
 		return
 	}
