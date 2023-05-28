@@ -419,7 +419,10 @@ const permissionTreeElem = (v, form) => {
   const apl = v?.list || []; // 当前角色所拥有的所有权限
   return (
     <RenderShell v={v} form={form} key={v.key}>
-      <PermissionDFSTree allPermissionList={apl} />
+      <PermissionDFSTree
+        level={1}
+        permissions={apl}
+      />
     </RenderShell>
   )
 }

@@ -25,6 +25,7 @@ const RoleForm = () => {
       key: "permissions",
       type: "permissionTree",
       list: permissionTree,
+      required: true,
     }
   ]
 
@@ -33,9 +34,14 @@ const RoleForm = () => {
     wrapperCol: { span: 8 },
   }
 
+  const submitHandler = async () => {
+    const values = await formInstance.validateFields()
+    console.warn("values is >>>>", values)
+  }
+
   return (
     <PageContainer>
-      <Card>
+      <Card loading={loading}>
         <Form {...formItemLayout} form={formInstance}>
           <FormItem
             list={detailForm}
@@ -43,7 +49,7 @@ const RoleForm = () => {
           />
           <Row>
             <Col offset={formItemLayout.labelCol.span}>
-              <Button type="primary">提交</Button>
+              <Button onClick={submitHandler} type="primary">提交</Button>
             </Col>
           </Row>
         </Form>
