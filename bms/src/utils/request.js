@@ -1,6 +1,7 @@
 import axios from "axios"
 import { message } from "antd"
 import { tokenDB } from "./localStorage"
+import { history } from "@umijs/max"
 
 const client = axios.create({
   baseURL: "/api/ope",
@@ -24,6 +25,12 @@ client.interceptors.response.use((response) => {
       history.replace(loginRoute)
       tokenDB.remove()
     }
+    return Promise.reject(res)
+  }
+
+  const noPermissionCode = 3
+  if (code == noPermissionCode) {
+    history.replace("/503")
     return Promise.reject(res)
   }
 

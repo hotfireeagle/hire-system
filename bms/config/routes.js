@@ -23,6 +23,11 @@ export default [
     ],
   },
   {
+    path: "/503",
+    layout: false,
+    component: "./404", // TODO:
+  },
+  {
     path: "/homepage",
     name: "首页",
     icon: "smile",

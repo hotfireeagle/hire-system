@@ -83,3 +83,14 @@ func FindPermissionById(id uint) (p Permission, err error) {
 func FindPermissionListByIdList(ids []uint) (permList []Permission, err error) {
 	return permList, DB.Find(&permList, ids).Error
 }
+
+func ValidatePermission(account string, endpoint string, method string) (bool, error) {
+	casbinEnforcer.LoadPolicy()
+	ok, err := casbinEnforcer.Enforce(account, endpoint, method)
+
+	if err != nil {
+		return false, err
+	}
+
+	return ok, nil
+}

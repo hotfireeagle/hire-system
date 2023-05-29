@@ -33,6 +33,13 @@ func unLoginRes(ctx *gin.Context, err string) {
 	ctx.JSON(200, res)
 }
 
+func unAuthRes(ctx *gin.Context) {
+	res := model.Response{
+		Code: model.UnAuth,
+	}
+	ctx.JSON(200, res)
+}
+
 func validate(ctx *gin.Context, data interface{}) error {
 	if err := ctx.ShouldBindJSON(data); err != nil {
 		errRes(ctx, err.Error())

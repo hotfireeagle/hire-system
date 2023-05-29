@@ -6,6 +6,7 @@ const (
 	Err ResponseCode = iota
 	Success
 	NeedLogin
+	UnAuth
 )
 
 type Response struct {
