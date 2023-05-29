@@ -47,6 +47,12 @@ export default [
         hideInMenu: true,
       },
       {
+        path: "/permissionModule/role/detail/:id",
+        name: "角色详情",
+        component: "./roleModule/form",
+        hideInMenu: true,
+      },
+      {
         path: "/permissionModule/account",
         name: "成员管理",
         component: "./roleModule/list",

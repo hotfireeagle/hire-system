@@ -3,10 +3,19 @@ import { FormItem } from "@/components/formItem"
 import { Form, Card, Button, Row, Col, message } from "antd"
 import { useFetch } from "@/hooks/useFetch"
 import request from "@/utils/request"
+import { useParams } from "umi"
+import { useState, useEffect } from "react"
+import Btn from "@/components/btn"
 
 const RoleForm = () => {
+  const paramsObj = useParams()
   const [formInstance] = Form.useForm()
   const [loading, permissionTree] = useFetch([], "/permission/tree")
+  const [detailData, setDetailData] = useState({})
+  const [reloadDetail, setReloadDetail] = useState(false)
+  const [loadingDetail, setLoadingDetail] = useState(false)
+
+  const checkIsSeeDetail = () => !!paramsObj.id
 
   const detailForm = [
     {
@@ -37,15 +46,40 @@ const RoleForm = () => {
 
   const submitHandler = async () => {
     const values = await formInstance.validateFields()
-    request("/permission/role/new", values).then(() => {
+    const postData = {
+      ...(detailData || {}),
+      ...values,
+    }
+    let url = "/permission/role/new"
+    if (checkIsSeeDetail()) {
+      url = "/permission/role/update"
+    }
+    request(url, postData).then(() => {
       message.success("操作成功")
+      if (checkIsSeeDetail()) {
+        setReloadDetail(!reloadDetail)
+        return
+      }
       history.back()
     })
   }
 
+  useEffect(() => {
+    if (!checkIsSeeDetail()) {
+      return
+    }
+    setLoadingDetail(true)
+    request(`/permission/role/detail/${paramsObj.id}`, {}, "get").then(res => {
+      setDetailData(res)
+      formInstance.setFieldsValue(res)
+    }).finally(() => {
+      setLoadingDetail(false)
+    })
+  }, [reloadDetail])
+
   return (
     <PageContainer>
-      <Card loading={loading}>
+      <Card loading={loading || loadingDetail}>
         <Form {...formItemLayout} form={formInstance}>
           <FormItem
             list={detailForm}
@@ -53,7 +87,12 @@ const RoleForm = () => {
           />
           <Row>
             <Col offset={formItemLayout.labelCol.span}>
-              <Button onClick={submitHandler} type="primary">提交</Button>
+              <Btn
+                onClick={submitHandler}
+                type="primary"
+                text="提交"
+                throttleTime={1000}
+              />
             </Col>
           </Row>
         </Form>

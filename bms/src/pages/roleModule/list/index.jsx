@@ -20,7 +20,12 @@ const RoleList = () => {
       title: "操作",
       dataIndex: "id",
       render: v => {
-        return <a href="#">查看详情</a>
+        const seeDetail = event => {
+          event.preventDefault()
+          const detailUrl = `/permissionModule/role/detail/${v}`
+          history.push(detailUrl)
+        }
+        return <a onClick={seeDetail} href="#">查看详情</a>
       }
     }
   ]

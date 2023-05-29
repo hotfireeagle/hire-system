@@ -80,6 +80,6 @@ func FindPermissionById(id uint) (p Permission, err error) {
 	return p, DB.Find(&p).Where("id = ?", id).Error
 }
 
-func FindPermissionListByIdList(ids []uint) (users []Permission, err error) {
-	return users, DB.Find(&users, ids).Error
+func FindPermissionListByIdList(ids []uint) (permList []Permission, err error) {
+	return permList, DB.Find(&permList, ids).Error
 }

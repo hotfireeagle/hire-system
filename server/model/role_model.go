@@ -19,7 +19,8 @@ type Role struct {
 	Permissions []Permission   `gorm:"many2many:permissions_to_roles"`
 }
 
-type NewRoleRequestBody struct {
+type RoleUIMeta struct {
+	Id          uint   `json:"id"`
 	Name        string `json:"name" binding:"required"`
 	Desc        string `json:"desc" binding:"required"`
 	Permissions []uint `json:"permissions" binding:"required"`
@@ -67,7 +68,7 @@ func SelectRoleList(queryData *QueryRoleListReqeustBody) (QueryRoleListResponseB
 }
 
 // 新增一个角色
-func NewRole(data *NewRoleRequestBody) error {
+func NewRole(data *RoleUIMeta) error {
 	permissions, err := FindPermissionListByIdList(data.Permissions)
 	if err != nil {
 		return err
@@ -82,9 +83,70 @@ func NewRole(data *NewRoleRequestBody) error {
 	for _, perm := range permissions {
 		_, err = casbinEnforcer.AddPolicy(data.Name, perm.Endpoint, perm.Method)
 	}
+	if err != nil {
+		casbinEnforcer.RemoveFilteredPolicy(0, data.Name)
+		return err
+	}
 	err = DB.Create(roleObj).Error
+	if err != nil {
+		casbinEnforcer.RemoveFilteredPolicy(0, data.Name)
+		return err
+	}
 
-	// TODO: 事务
+	return nil
+}
 
-	return err
+func SelectRoleDetail(roleId string) (roleDetail Role, err error) {
+	return roleDetail, DB.Preload("Permissions").Find(&roleDetail, roleId).Error
+}
+
+func UpdateRole(data *RoleUIMeta) error {
+	roleObj := Role{
+		Id: data.Id,
+	}
+	dbRole, err := SelectRoleById(data.Id)
+	if err != nil {
+		return err
+	}
+
+	var finalErr error
+	permList, finalErr := FindPermissionListByIdList(data.Permissions)
+	if finalErr != nil {
+		return finalErr
+	}
+
+	casbinEnforcer.RemoveFilteredPolicy(0, dbRole.Name)
+	for _, perm := range permList {
+		_, finalErr = casbinEnforcer.AddPolicy(data.Name, perm.Endpoint, perm.Method)
+	}
+
+	// 手动处理casbin的回退事务
+	defer func() {
+		if finalErr != nil {
+			casbinEnforcer.RemoveFilteredPolicy(0, data.Name)
+		}
+	}()
+
+	DB.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&roleObj).Select("Name", "Desc").Updates(Role{
+			Name: data.Name,
+			Desc: data.Desc,
+		}).Error; err != nil {
+			finalErr = err
+			return err
+		}
+
+		if err := tx.Model(&roleObj).Association("Permissions").Replace(permList); err != nil {
+			finalErr = err
+			return err
+		}
+
+		return nil
+	})
+
+	return finalErr
+}
+
+func SelectRoleById(roleId uint) (role Role, err error) {
+	return role, DB.Find(&role, roleId).Error
 }
