@@ -80,3 +80,13 @@ func updateRoleRoute(c *gin.Context) {
 
 	okRes(c, "")
 }
+
+func getAllRolesRoute(c *gin.Context) {
+	res, err := model.SelectAllRoles()
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, res)
+}

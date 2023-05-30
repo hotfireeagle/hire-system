@@ -89,3 +89,69 @@ func opeUserFetchDetailRouter(c *gin.Context) {
 	// TODO: 普通用户查找其权限
 	okRes(c, email)
 }
+
+func fetchOpeUserListRoute(c *gin.Context) {
+	query := new(model.QueryOpeUserListRequestBody)
+	if validate(c, query) != nil {
+		return
+	}
+
+	result, err := model.SelectOpeUserList(query)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, result)
+}
+
+func newOpeUserRoute(c *gin.Context) {
+	postData := new(model.NewOpeUserRequestBody)
+	if validate(c, postData) != nil {
+		return
+	}
+	if len(postData.Roles) == 0 {
+		errRes(c, "缺少角色数据")
+		return
+	}
+
+	password, err := model.InsertOpeUser(postData)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, password)
+}
+
+func fetchOpeUserDetailRoute(c *gin.Context) {
+	id := c.Param("id")
+	user, err := model.FindOpeUserDetailById(id)
+
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, model.OpeUser2UI(&user))
+}
+
+func updateOpeUserRoute(c *gin.Context) {
+	postData := new(model.NewOpeUserRequestBody)
+	if validate(c, postData) != nil {
+		return
+	}
+
+	if len(postData.Roles) == 0 {
+		errRes(c, "请指定角色")
+		return
+	}
+
+	err := model.UpdateOpeUser(postData)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, "")
+}

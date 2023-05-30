@@ -10,13 +10,13 @@ import (
 type Role struct {
 	Id          uint           `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
 	CreateTime  time.Time      `gorm:"column:create_time;autoCreateTime" json:"createTime"`
-	UpdateTime  time.Time      `gorm:"column:update_time;autoUpdateTime" json:"updateTime,omitempty"`
-	DeleteTime  gorm.DeletedAt `gorm:"column:delete_time;index" json:"deleteTime,omitempty"`
+	UpdateTime  time.Time      `gorm:"column:update_time;autoUpdateTime" json:"updateTime"`
+	DeleteTime  gorm.DeletedAt `gorm:"column:delete_time;index" json:"deleteTime"`
 	Name        string         `gorm:"column:name;unique;not null" binding:"required" json:"name"`
-	Desc        string         `gorm:"column:desc" binding:"required" json:"desc"`
-	CreatorId   uint           `gorm:"column:creator_id;not null" binding:"required" json:"creatorId"`
-	OpeUsers    []OpeUser      `gorm:"many2many:opeusers_to_roles"`
-	Permissions []Permission   `gorm:"many2many:permissions_to_roles"`
+	Desc        string         `gorm:"column:desc" binding:"required" json:"desc,omitempty"`
+	CreatorId   uint           `gorm:"column:creator_id;not null" binding:"required" json:"creatorId,omitempty"`
+	OpeUsers    []OpeUser      `gorm:"many2many:opeusers_to_roles" json:"opeUsers"`
+	Permissions []Permission   `gorm:"many2many:permissions_to_roles" json:"permissions"`
 }
 
 type RoleUIMeta struct {
@@ -149,4 +149,12 @@ func UpdateRole(data *RoleUIMeta) error {
 
 func SelectRoleById(roleId uint) (role Role, err error) {
 	return role, DB.Find(&role, roleId).Error
+}
+
+func SelectAllRoles() (roles []Role, err error) {
+	return roles, DB.Select("Id", "Name").Find(&roles).Error
+}
+
+func SelectRolesByIds(ids []uint) (roles []Role, err error) {
+	return roles, DB.Find(&roles, ids).Error
 }

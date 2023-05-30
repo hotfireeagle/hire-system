@@ -60,7 +60,20 @@ export default [
       {
         path: "/permissionModule/account",
         name: "成员管理",
-        component: "./roleModule/list",
+        component: "./accountModule/list",
+        access: "成员管理",
+      },
+      {
+        path: "/permissionModule/account/new",
+        name: "新增成员",
+        component: "./accountModule/form",
+        hideInMenu: true,
+      },
+      {
+        path: "/permissionModule/account/detail/:accountId",
+        name: "成员详情",
+        component: "./accountModule/form",
+        hideInMenu: true,
       }
     ],
   },

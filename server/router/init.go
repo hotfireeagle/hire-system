@@ -20,11 +20,20 @@ func InitRouter(c *gin.Engine) {
 	opeUserGroup.POST("/login", opeUserLoginRouter)
 	opeUserGroup.GET("/detail", opeUserFetchDetailRouter)
 
-	// 后台管理权限模块
+	// 后台管理系统权限模块
 	permissionGroup := opeGroup.Group("/permission")
-	permissionGroup.POST("/role/list", getRoleListRouter)
-	permissionGroup.POST("/role/new", newRoleRouter)
-	permissionGroup.GET("/role/detail/:roleId", getRoleDetailRouter)
-	permissionGroup.POST("/role/update", updateRoleRoute)
 	permissionGroup.POST("/tree", getPermissionTreeRouter)
+
+	permissionRoleGroup := permissionGroup.Group("/role")
+	permissionRoleGroup.POST("/list", getRoleListRouter)
+	permissionRoleGroup.POST("/new", newRoleRouter)
+	permissionRoleGroup.GET("/detail/:roleId", getRoleDetailRouter)
+	permissionRoleGroup.POST("/update", updateRoleRoute)
+	permissionRoleGroup.GET("/all", getAllRolesRoute)
+
+	permissionAccountGroup := permissionGroup.Group("/account")
+	permissionAccountGroup.POST("/list", fetchOpeUserListRoute)
+	permissionAccountGroup.POST("/new", newOpeUserRoute)
+	permissionAccountGroup.GET("/detail/:id", fetchOpeUserDetailRoute)
+	permissionAccountGroup.POST("/update", updateOpeUserRoute)
 }
