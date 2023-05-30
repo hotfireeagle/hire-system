@@ -4,16 +4,24 @@ import { UserOutlined, LockOutlined, } from "@ant-design/icons"
 import request from "@/utils/request"
 import { tokenDB } from "@/utils/localStorage"
 import { history } from "@umijs/max"
+import { fetchUserInfo } from "@/utils/tool"
+import { useModel } from "umi"
 
 const LoginPage = () => {
+  const { initialState, loading, error, refresh, setInitialState } = useModel("@@initialState")
   /**
    * 进行登录处理的方法
    * @returns 
    */
   const loginHandler = values => {
     const postData = { ...values }
-    return request("/user/login", postData, "post").then(token => {
+    return request("/user/login", postData, "post").then(async token => {
       tokenDB.put(token)
+      const permissions = await fetchUserInfo()
+      setInitialState({
+        ...initialState,
+        permissions,
+      })
       setTimeout(() => {
         history.push("/")
       }, 300)

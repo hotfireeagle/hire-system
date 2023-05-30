@@ -1,7 +1,6 @@
 import { SettingDrawer } from "@ant-design/pro-components"
-import { history } from "@umijs/max"
 import defaultSettings from "../config/defaultSettings"
-import request from "@/utils/request"
+import { fetchUserInfo } from "@/utils/tool"
 
 const loginPath = "/user/login"
 
@@ -9,14 +8,7 @@ const loginPath = "/user/login"
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState() {
-  let permissions = []
-  try {
-    permissions = await request("/user/detail", {}, "get")
-  } catch (err) {
-    if (!location.pathname.includes("/user/login")) {
-      history.push(loginPath)
-    }
-  }
+  const permissions = await fetchUserInfo()
   return {
     settings: defaultSettings,
     permissions,

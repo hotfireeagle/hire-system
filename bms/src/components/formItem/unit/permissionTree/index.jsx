@@ -95,7 +95,11 @@ const PermissionTree = props => {
           permissions.map((permissionObj, idx) => {
             const checkStatusObj = returnCheckStatus(permissionObj)
             return (
-              <div key={permissionObj.id} className={returnRowClsName(idx)}>
+              <div
+                key={permissionObj.id}
+                className={returnRowClsName(idx)}
+                onClick={() => setActiveIdx(idx)}
+              >
                 <Checkbox
                   checked={checkStatusObj.checked}
                   indeterminate={checkStatusObj.indeterminate}

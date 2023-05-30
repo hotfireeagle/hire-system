@@ -4,6 +4,7 @@ import (
 	"hire/util"
 	"time"
 
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -97,10 +98,14 @@ func InsertOpeUser(data *NewOpeUserRequestBody) (string, error) {
 	}
 
 	randomPassword := util.GeneratePassword()
+	resultByte, err := bcrypt.GenerateFromPassword([]byte(randomPassword), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
 
 	userObj := OpeUser{
 		Email:    data.Email,
-		Password: randomPassword,
+		Password: string(resultByte),
 		Roles:    roles,
 	}
 

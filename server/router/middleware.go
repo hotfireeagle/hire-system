@@ -49,7 +49,7 @@ func loginValidator() gin.HandlerFunc {
 
 func permissionValidator() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		uri := c.Request.URL.RequestURI()
+		uri := c.FullPath()
 
 		if whitePermissionApiMap[uri] {
 			c.Next()
