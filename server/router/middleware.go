@@ -63,6 +63,18 @@ func permissionValidator() gin.HandlerFunc {
 			return
 		}
 
+		dbUser, err := model.FindOpeUserByEmail(emailStr)
+		if err != nil {
+			errRes(c, err.Error())
+			c.Abort()
+			return
+		}
+
+		if dbUser.CheckIsRoot() {
+			c.Next()
+			return
+		}
+
 		method := c.Request.Method
 
 		ok, err := model.ValidatePermission(emailStr, uri, method)
