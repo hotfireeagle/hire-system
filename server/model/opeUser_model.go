@@ -51,6 +51,16 @@ func FindOpeUserByEmail(email string) (user *OpeUser, err error) {
 	return user, DB.Where("email = ?", email).First(&user).Error
 }
 
+func FindOpeUserOwnRoles(email string) ([]Role, error) {
+	var roles []Role
+	userObj, err := FindOpeUserByEmail(email)
+	if err != nil {
+		return roles, err
+	}
+
+	return roles, DB.Model(&userObj).Preload("Permissions").Association("Roles").Find(&roles)
+}
+
 // 通过Limit(1)+Find形式查找用户
 func FindOpeUserByEmailButNoNotFoundError(email string) (user OpeUser, err error) {
 	return user, DB.Where("email = ?", email).Limit(1).Find(&user).Error

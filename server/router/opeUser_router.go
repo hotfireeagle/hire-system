@@ -70,13 +70,13 @@ func opeUserFetchDetailRouter(c *gin.Context) {
 		return
 	}
 
-	if dbUser.CheckIsRoot() {
-		permissions, err := model.SelectPermissionList(&model.QueryPermissionListRequestParam{})
-		if err != nil {
-			errRes(c, err.Error())
-			return
-		}
+	permissions, err := model.SelectPermissionList(&model.QueryPermissionListRequestParam{})
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
 
+	if dbUser.CheckIsRoot() {
 		var strPermission []string
 		for _, permissionObj := range *permissions {
 			strPermission = append(strPermission, permissionObj.Name)
@@ -86,8 +86,47 @@ func opeUserFetchDetailRouter(c *gin.Context) {
 		return
 	}
 
-	// TODO: 普通用户查找其权限
-	okRes(c, email)
+	// TODO: 优化代码，尽可能通过sql去做更多的事
+	userOwnRoles, err := model.FindOpeUserOwnRoles(email)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	ownLeafPermissionMap := make(map[uint]model.Permission)
+	for _, roleObj := range userOwnRoles {
+		for _, permissionObj := range roleObj.Permissions {
+			ownLeafPermissionMap[permissionObj.Id] = permissionObj
+		}
+	}
+
+	permissionIdMap := make(map[uint]model.Permission)
+	for _, perm := range *permissions {
+		permissionIdMap[perm.Id] = perm
+	}
+
+	var findParent = func(id uint) uint {
+		perm := permissionIdMap[id]
+		return perm.ParentId
+	}
+
+	ownAllPermissionMap := make(map[uint]struct{}, 0)
+	for perId := range ownLeafPermissionMap {
+		ownAllPermissionMap[perId] = struct{}{}
+		// 查perId的上级别，上上级
+		parentId := findParent(perId)
+		for parentId != 0 {
+			ownAllPermissionMap[parentId] = struct{}{}
+			parentId = findParent(parentId)
+		}
+	}
+
+	finalAnswer := make([]string, 0)
+	for pid := range ownAllPermissionMap {
+		finalAnswer = append(finalAnswer, permissionIdMap[pid].Name)
+	}
+
+	okRes(c, finalAnswer)
 }
 
 func fetchOpeUserListRoute(c *gin.Context) {
