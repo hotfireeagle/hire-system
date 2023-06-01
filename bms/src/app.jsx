@@ -1,6 +1,7 @@
 import { SettingDrawer } from "@ant-design/pro-components"
 import defaultSettings from "../config/defaultSettings"
 import { fetchUserInfo } from "@/utils/tool"
+import { history } from "@umijs/max"
 
 const loginPath = "/user/login"
 
@@ -8,10 +9,10 @@ const loginPath = "/user/login"
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState() {
-  const permissions = await fetchUserInfo()
+  const userDetail = await fetchUserInfo()
   return {
     settings: defaultSettings,
-    permissions,
+    userDetail,
   }
 }
 
@@ -19,7 +20,13 @@ export async function getInitialState() {
 export const layout = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [],
-    avatarProps: {},
+    avatarProps: {
+      style: {
+        backgroundColor: "#f56a00",
+      },
+      children: initialState?.userDetail?.email?.[0]?.toUpperCase(),
+      onClick: () => history.replace(loginPath),
+    },
     footerRender: () => null,
     onPageChange: () => {},
     layoutBgImgList: [

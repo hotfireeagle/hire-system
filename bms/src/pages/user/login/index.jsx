@@ -17,10 +17,10 @@ const LoginPage = () => {
     const postData = { ...values }
     return request("/user/login", postData, "post").then(async token => {
       tokenDB.put(token)
-      const permissions = await fetchUserInfo()
+      const userDetail = await fetchUserInfo()
       setInitialState({
         ...initialState,
-        permissions,
+        userDetail,
       })
       setTimeout(() => {
         history.push("/")

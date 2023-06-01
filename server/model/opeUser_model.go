@@ -36,6 +36,11 @@ type NewOpeUserRequestBody struct {
 	Roles []uint `json:"roles" binding:"required"`
 }
 
+type OpeUserDetailResponse struct {
+	Email       string   `json:"email"`
+	Permissions []string `json:"permissions"`
+}
+
 func (o OpeUser) CheckIsRoot() bool {
 	return o.Email == "root"
 }

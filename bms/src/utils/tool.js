@@ -4,13 +4,13 @@ import { history } from "@umijs/max"
 const loginPath = "/user/login"
 
 export async function fetchUserInfo() {
-  let permissions = []
+  let userDetail = []
   try {
-    permissions = await request("/user/detail", {}, "get")
+    userDetail = await request("/user/detail", {}, "get")
   } catch (err) {
     if (!location.pathname.includes(loginPath)) {
       history.push(loginPath)
     }
   }
-  return permissions
+  return userDetail
 }

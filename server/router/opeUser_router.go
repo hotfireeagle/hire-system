@@ -83,7 +83,12 @@ func opeUserFetchDetailRouter(c *gin.Context) {
 			strPermission = append(strPermission, permissionObj.Name)
 		}
 
-		okRes(c, strPermission)
+		apiRes := &model.OpeUserDetailResponse{
+			Email:       email,
+			Permissions: strPermission,
+		}
+
+		okRes(c, apiRes)
 		return
 	}
 
@@ -127,7 +132,12 @@ func opeUserFetchDetailRouter(c *gin.Context) {
 		finalAnswer = append(finalAnswer, permissionIdMap[pid].Name)
 	}
 
-	okRes(c, finalAnswer)
+	finalApiRes := &model.OpeUserDetailResponse{
+		Email:       email,
+		Permissions: finalAnswer,
+	}
+
+	okRes(c, finalApiRes)
 }
 
 func fetchOpeUserListRoute(c *gin.Context) {
