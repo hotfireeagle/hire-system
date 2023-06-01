@@ -161,3 +161,7 @@ func OpeUser2UI(user *OpeUser) *NewOpeUserRequestBody {
 	}
 	return answer
 }
+
+func UpdateOpeUserPassword(email string, password string) error {
+	return DB.Model(&OpeUser{}).Where("email = ?", email).Update("password", password).Error
+}

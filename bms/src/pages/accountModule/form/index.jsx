@@ -3,7 +3,7 @@
  */
 import { PageContainer } from "@ant-design/pro-components"
 import { FormItem } from "@/components/formItem"
-import { Form, Card, Row, Col, message, notification } from "antd"
+import { Form, Card, Row, Col, message, notification, Button } from "antd"
 import { useFetch } from "@/hooks/useFetch"
 import request from "@/utils/request"
 import { useParams } from "umi"
@@ -72,6 +72,22 @@ const AccountForm = () => {
     })
   }
 
+  const resetPasswordHandler = () => {
+    request("/permission/account/resetPassword", {}, "get").then(newPassword => {
+      notification.success({
+        message: "密码",
+        description: newPassword,
+        duration: null,
+      })
+    })
+  }
+
+  const returnResetPasswordBtn = () => {
+    return (
+      <Button onClick={resetPasswordHandler} type="primary">重置密码</Button>
+    )
+  }
+
   useEffect(() => {
     if (!checkIsSeeDetail()) {
       return
@@ -87,7 +103,10 @@ const AccountForm = () => {
 
   return (
     <PageContainer>
-      <Card loading={loading || loadingDetail}>
+      <Card
+        loading={loading || loadingDetail}
+        extra={returnResetPasswordBtn()}
+      >
         <Form {...formItemLayout} form={formInstance}>
           <FormItem
             list={detailForm}

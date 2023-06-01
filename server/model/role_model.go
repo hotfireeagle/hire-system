@@ -42,7 +42,7 @@ func SelectRoleList(queryData *QueryRoleListReqeustBody) (QueryRoleListResponseB
 	var roleList []Role
 	var total int64
 	var res QueryRoleListResponseBody
-	tx := DB.Model(&Role{})
+	tx := DB.Model(&Role{}).Where("delete_time is null")
 
 	if queryData.Name != "" {
 		tx = tx.Where("name = ?", queryData.Name)
@@ -157,4 +157,8 @@ func SelectAllRoles() (roles []Role, err error) {
 
 func SelectRolesByIds(ids []uint) (roles []Role, err error) {
 	return roles, DB.Find(&roles, ids).Error
+}
+
+func DeleteRole(id string) error {
+	return DB.Model(&Role{}).Where("id = ?", id).Update("DeleteTime", time.Now()).Error
 }

@@ -90,3 +90,19 @@ func getAllRolesRoute(c *gin.Context) {
 
 	okRes(c, res)
 }
+
+func deleteRoleRoute(c *gin.Context) {
+	roleId := c.Param("roleId")
+	if roleId == "" {
+		errRes(c, "缺少角色ID")
+		return
+	}
+
+	err := model.DeleteRole(roleId)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, "")
+}

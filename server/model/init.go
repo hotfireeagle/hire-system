@@ -57,11 +57,13 @@ func initPermission() {
 	newPermission("查看角色详情", "角色管理", "/api/ope/permission/role/detail/:roleId", "GET")
 	newPermission("更新角色", "角色管理", "/api/ope/permission/role/update", "POST")
 	newPermission("获取所有角色列表", "角色管理", "/api/ope/permission/role/all", "GET")
+	newPermission("删除角色", "角色管理", "/api/ope/permission/role/delete/:roleId", "GET")
 
 	newPermission("查看成员列表", "成员管理", "/api/ope/permission/account/list", "POST")
 	newPermission("新增成员", "成员管理", "/api/ope/permission/account/new", "POST")
 	newPermission("查看成员详情", "成员管理", "/api/ope/permission/account/detail/:id", "GET")
 	newPermission("更新成员", "成员管理", "/api/ope/permission/account/update", "POST")
+	newPermission("重置成员密码", "成员管理", "/api/ope/permission/account/resetPassword", "GET")
 }
 
 func initCasbin(dsn string) {

@@ -2,6 +2,7 @@ package router
 
 import (
 	"hire/model"
+	"hire/util"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -193,4 +194,24 @@ func updateOpeUserRoute(c *gin.Context) {
 	}
 
 	okRes(c, "")
+}
+
+func resetOpeUserPasswordRoute(c *gin.Context) {
+	email := c.GetString("email")
+
+	randomPassword := util.GeneratePassword()
+	resultByte, err := bcrypt.GenerateFromPassword([]byte(randomPassword), bcrypt.DefaultCost)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	newPassword := string(resultByte)
+	err = model.UpdateOpeUserPassword(email, newPassword)
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, randomPassword)
 }
