@@ -48,6 +48,7 @@ func init() {
 
 func initPermission() {
 	newPermission("权限管理", "", "", "")
+	newPermission("banner管理", "", "", "")
 	newPermission("角色管理", "权限管理", "", "")
 	newPermission("成员管理", "权限管理", "", "")
 	newPermission("查看权限树列表", "权限管理", "/api/ope/permission/tree", "POST")
@@ -64,6 +65,11 @@ func initPermission() {
 	newPermission("查看成员详情", "成员管理", "/api/ope/permission/account/detail/:id", "GET")
 	newPermission("更新成员", "成员管理", "/api/ope/permission/account/update", "POST")
 	newPermission("重置成员密码", "成员管理", "/api/ope/permission/account/resetPassword/:id", "GET")
+
+	newPermission("获取banner列表", "banner管理", "/api/ope/banner/list", "GET")
+	newPermission("新建banner", "banner管理", "/api/ope/banner/new", "POST")
+	newPermission("更新banner", "banner管理", "/api/ope/banner/update", "POST")
+	newPermission("删除banner", "banner管理", "/api/ope/banner/delete/:bannerId", "GET")
 }
 
 func initCasbin(dsn string) {

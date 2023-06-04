@@ -38,4 +38,11 @@ func InitRouter(c *gin.Engine) {
 	permissionAccountGroup.GET("/detail/:id", fetchOpeUserDetailRoute)
 	permissionAccountGroup.POST("/update", updateOpeUserRoute)
 	permissionAccountGroup.GET("/resetPassword/:id", resetOpeUserPasswordRoute)
+
+	// banner模块
+	bannerGroup := opeGroup.Group("/banner")
+	bannerGroup.GET("/list", queryBannerListRoute)
+	bannerGroup.POST("/new", createBannerRoute)
+	bannerGroup.POST("/update", updateBannerRoute)
+	bannerGroup.GET("/delete/:bannerId", deleteBannerRoute)
 }
