@@ -207,7 +207,7 @@ func updateOpeUserRoute(c *gin.Context) {
 }
 
 func resetOpeUserPasswordRoute(c *gin.Context) {
-	email := c.GetString("email")
+	uid := c.Param("id")
 
 	randomPassword := util.GeneratePassword()
 	resultByte, err := bcrypt.GenerateFromPassword([]byte(randomPassword), bcrypt.DefaultCost)
@@ -217,7 +217,7 @@ func resetOpeUserPasswordRoute(c *gin.Context) {
 	}
 
 	newPassword := string(resultByte)
-	err = model.UpdateOpeUserPassword(email, newPassword)
+	err = model.UpdateOpeUserPassword(uid, newPassword)
 	if err != nil {
 		errRes(c, err.Error())
 		return

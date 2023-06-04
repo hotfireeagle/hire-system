@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import { Checkbox, Card } from "antd"
 import { RightOutlined } from "@ant-design/icons"
@@ -7,8 +7,8 @@ import styles from "./index.less"
 const PermissionTree = props => {
   const {
     level,
-    permissions,
   } = props
+  const permissions = props.permissions || []
   const checkedPermissionIds = props.value || []
 
   const [activeIdx, setActiveIdx] = useState(0) // 当前批所选中的权限索引
@@ -27,6 +27,7 @@ const PermissionTree = props => {
     const find = obj => {
       if (!obj?.children?.length) {
         answer.push(obj)
+        return
       }
       for (const p of obj.children) {
         find(p)
@@ -85,6 +86,10 @@ const PermissionTree = props => {
     }
   }
 
+  useEffect(() => {
+    setActiveIdx(0)
+  }, [permissions])
+
   if (!permissions.length) {
     return null
   }
@@ -106,7 +111,7 @@ const PermissionTree = props => {
                   onChange={event => changeCheckStatus(event, permissionObj)}
                 />
                 <div
-                  className={`${styles.rowCls} ${styles.row2Cls}`}
+                  className={styles.row2Cls}
                 >
                   <span>{permissionObj.name}</span>
                   {permissionObj.children?.length > 0 ? (

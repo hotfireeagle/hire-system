@@ -37,5 +37,5 @@ func InitRouter(c *gin.Engine) {
 	permissionAccountGroup.POST("/new", newOpeUserRoute)
 	permissionAccountGroup.GET("/detail/:id", fetchOpeUserDetailRoute)
 	permissionAccountGroup.POST("/update", updateOpeUserRoute)
-	permissionAccountGroup.GET("/resetPassword", resetOpeUserPasswordRoute)
+	permissionAccountGroup.GET("/resetPassword/:id", resetOpeUserPasswordRoute)
 }

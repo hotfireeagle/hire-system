@@ -7,7 +7,12 @@
   padding-right: 2px;
   cursor: pointer;
 }
+.rowCls:hover {
+  background: rgba(86,87,88,0.04);
+}
 .row2Cls {
+  display: flex;
+  min-width: 180px;
   margin-left: 15px;
   justify-content: space-between;
 }
@@ -21,7 +26,7 @@
 }
 .cardContainer {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   :global {
     .ant-card {
       margin-right: 10px;

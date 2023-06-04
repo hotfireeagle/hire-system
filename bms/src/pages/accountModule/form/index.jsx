@@ -73,7 +73,7 @@ const AccountForm = () => {
   }
 
   const resetPasswordHandler = () => {
-    request("/permission/account/resetPassword", {}, "get").then(newPassword => {
+    request(`/permission/account/resetPassword/${paramsObj.accountId}`, {}, "get").then(newPassword => {
       notification.success({
         message: "密码",
         description: newPassword,
