@@ -41,7 +41,7 @@ func InitRouter(c *gin.Engine) {
 
 	// banner模块
 	bannerGroup := opeGroup.Group("/banner")
-	bannerGroup.GET("/list", queryBannerListRoute)
+	bannerGroup.POST("/list", queryBannerListRoute)
 	bannerGroup.POST("/new", createBannerRoute)
 	bannerGroup.POST("/update", updateBannerRoute)
 	bannerGroup.GET("/delete/:bannerId", deleteBannerRoute)

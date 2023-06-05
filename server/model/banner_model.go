@@ -24,7 +24,7 @@ type QueryBannerListRequestBody struct {
 
 type QueryBannerListResponse struct {
 	Total int64    `json:"total"`
-	List  []Banner `json:"banner"`
+	List  []Banner `json:"list"`
 }
 
 func InsertBanner(bannerObj *Banner) error {

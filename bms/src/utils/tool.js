@@ -14,3 +14,10 @@ export async function fetchUserInfo() {
   }
   return userDetail
 }
+
+export function converTimeForApi(postData, startTimeKey, endTimeKey, timesKey="times") {
+  const timesArr = postData?.[timesKey] || []
+  postData[startTimeKey] = timesArr[0].format("YYYY-MM-DDT00:00:00Z")
+  postData[endTimeKey] = timesArr[1].format("YYYY-MM-DDT23:59:59Z")
+  delete postData[timesKey]
+}

@@ -34,6 +34,12 @@ export default [
     component: "./homepage",
   },
   {
+    path: "/bannerModule",
+    name: "banner配置",
+    icon: "smile",
+    component: "./bannerModule",
+  },
+  {
     path: "/permissionModule",
     name: "权限管理",
     icon: "safety",

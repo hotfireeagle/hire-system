@@ -114,5 +114,6 @@ func initTable() {
 		&Permission{},
 		&Role{},
 		&User{},
+		&Banner{},
 	)
 }
