@@ -1,7 +1,7 @@
 import { Card, message, Button } from "antd"
 import SearchList from "@/components/searchList"
 import { renderImgInTable, renderSomeLineWithTooltip } from "@/utils/ui"
-import { converTimeForApi } from "@/utils/tool"
+import { convertTimeForApi, convertTimeToShow, convertApiTimeForUI } from "@/utils/tool"
 import ModalForm from "@/components/modalForm"
 import { useState } from "react"
 import request from "@/utils/request"
@@ -30,7 +30,7 @@ const BannerModule = () => {
       title: "上下线时间",
       dataIndex: "id",
       render: (v, obj) => {
-        return <div>[{obj.online_time}, {obj.offline_time}]</div>
+        return <div>[{convertTimeToShow(obj.onlineTime)}, {convertTimeToShow(obj.offlineTime)}]</div>
       },
     },
     {
@@ -39,16 +39,31 @@ const BannerModule = () => {
       render: (val, obj) => {
         const editHandler = event => {
           event.preventDefault()
+          convertApiTimeForUI(obj, "onlineTime", "offlineTime") // 对时间做一个处理
           setActiveBanner(obj)
+          setShowModal(true)
         }
 
         return (
           <div>
-            <a onClick={editHandler} href="#">修改</a>
+            <a style={{ marginRight: 15 }} onClick={editHandler} href="#">修改</a>
             <a onClick={event => deleteBannerHandler(event, val)} href="#">删除</a>
           </div>
         )
       }
+    }
+  ]
+
+  const searchColumns = [
+    {
+      label: "状态",
+      key: "status",
+      type: "select",
+      oplist: [
+        { name: "展示中", value: 1, },
+        { name: "已过期", value: 2, },
+        { name: "未到期", value: 3, },
+      ],
     }
   ]
 
@@ -85,7 +100,7 @@ const BannerModule = () => {
       ...(activeBanner || {}),
       ...values,
     }
-    converTimeForApi(postData, "onlineTime", "offlineTime", "times")
+    convertTimeForApi(postData, "onlineTime", "offlineTime", "times")
     let url = "/banner/new"
     if (checkIsEditBanner()) {
       url = "/banner/update"
@@ -105,6 +120,7 @@ const BannerModule = () => {
         url="/banner/list"
         tableColumns={bannerColumns}
         needReload={reloadList}
+        searchSchema={searchColumns}
       >
         <Button onClick={() => setShowModal(true)} type="primary">新增banner</Button>
       </SearchList>
@@ -115,6 +131,7 @@ const BannerModule = () => {
         formList={editFormList}
         onOk={clickOkHandler}
         onCancel={() => setShowModal(false)}
+        initValue={activeBanner}
       />
     </Card>
   )

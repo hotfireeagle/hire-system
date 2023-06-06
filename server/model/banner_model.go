@@ -6,6 +6,12 @@ import (
 	"gorm.io/gorm"
 )
 
+var (
+	BannerShowing int = 1
+	BannerExpired int = 2
+	BannerWaiting int = 3
+)
+
 type Banner struct {
 	Id          uint           `gorm:"column:id;primaryKey;autoIncrement;not null" json:"id"`
 	CreateTime  time.Time      `gorm:"column:create_time;autoCreateTime" json:"createTime"`
@@ -18,6 +24,7 @@ type Banner struct {
 }
 
 type QueryBannerListRequestBody struct {
+	Status   int `json:"status"`
 	Current  int `json:"currnt"`
 	PageSize int `json:"pageSize"`
 }
@@ -41,8 +48,17 @@ func DeleteBanner(id string) error {
 
 func QueryBannerList(queryData *QueryBannerListRequestBody) (QueryBannerListResponse, error) {
 	var total int64
+	now := time.Now()
 
 	tx := DB.Model(&Banner{}).Where("delete_time is null")
+
+	if queryData.Status == BannerShowing {
+		tx = tx.Where("online_time <= ? and offline_time >= ?", now, now)
+	} else if queryData.Status == BannerExpired {
+		tx = tx.Where("offline_time < ?", now)
+	} else if queryData.Status == BannerWaiting {
+		tx = tx.Where("online_time > ?", now)
+	}
 	tx.Count(&total)
 
 	if queryData.Current == 0 {
