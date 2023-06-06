@@ -35,9 +35,10 @@ export default [
   },
   {
     path: "/bannerModule",
-    name: "banner配置",
+    name: "横幅配置",
     icon: "smile",
     component: "./bannerModule",
+    access: "banner管理",
   },
   {
     path: "/permissionModule",

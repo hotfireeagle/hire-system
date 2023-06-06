@@ -1,3 +1,4 @@
+import { PageContainer } from "@ant-design/pro-components"
 import { Card, message, Button } from "antd"
 import SearchList from "@/components/searchList"
 import { renderImgInTable, renderSomeLineWithTooltip } from "@/utils/ui"
@@ -27,7 +28,7 @@ const BannerModule = () => {
       render: renderSomeLineWithTooltip,
     },
     {
-      title: "上下线时间",
+      title: "显示时间",
       dataIndex: "id",
       render: (v, obj) => {
         return <div>[{convertTimeToShow(obj.onlineTime)}, {convertTimeToShow(obj.offlineTime)}]</div>
@@ -59,6 +60,7 @@ const BannerModule = () => {
       label: "状态",
       key: "status",
       type: "select",
+      initialValue: 1,
       oplist: [
         { name: "展示中", value: 1, },
         { name: "已过期", value: 2, },
@@ -90,6 +92,7 @@ const BannerModule = () => {
       key: "times",
       type: "datePickers",
       required: true,
+      w: "100%",
     }
   ]
 
@@ -115,25 +118,27 @@ const BannerModule = () => {
   }
 
   return (
-    <Card>
-      <SearchList
-        url="/banner/list"
-        tableColumns={bannerColumns}
-        needReload={reloadList}
-        searchSchema={searchColumns}
-      >
-        <Button onClick={() => setShowModal(true)} type="primary">新增banner</Button>
-      </SearchList>
+    <PageContainer>
+      <Card>
+        <SearchList
+          url="/banner/list"
+          tableColumns={bannerColumns}
+          needReload={reloadList}
+          searchSchema={searchColumns}
+        >
+          <Button onClick={() => setShowModal(true)} type="primary">新增banner</Button>
+        </SearchList>
 
-      <ModalForm
-        title={checkIsEditBanner() ? "修改banner" : "新增banner"}
-        visible={showModal}
-        formList={editFormList}
-        onOk={clickOkHandler}
-        onCancel={() => setShowModal(false)}
-        initValue={activeBanner}
-      />
-    </Card>
+        <ModalForm
+          title={checkIsEditBanner() ? "修改banner" : "新增banner"}
+          visible={showModal}
+          formList={editFormList}
+          onOk={clickOkHandler}
+          onCancel={() => setShowModal(false)}
+          initValue={activeBanner}
+        />
+      </Card>
+    </PageContainer>
   )
 }
 

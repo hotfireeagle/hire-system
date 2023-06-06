@@ -39,7 +39,7 @@ func InsertBanner(bannerObj *Banner) error {
 }
 
 func UpdateBanner(bannerObj *Banner) error {
-	return DB.Model(&Banner{}).Select("Url", "JumpUrl", "OnlineTime", "OfflineTime").Updates(bannerObj).Error
+	return DB.Model(bannerObj).Select("Url", "JumpUrl", "OnlineTime", "OfflineTime").Updates(bannerObj).Error
 }
 
 func DeleteBanner(id string) error {
