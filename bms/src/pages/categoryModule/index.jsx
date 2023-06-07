@@ -1,5 +1,5 @@
 import { PageContainer } from "@ant-design/pro-components"
-import { Card, message, Empty } from "antd"
+import { Card, message, Empty, Popconfirm } from "antd"
 import { useState, useEffect } from "react"
 import request from "@/utils/request"
 import PropTypes from "prop-types"
@@ -128,8 +128,16 @@ const CategoryTree = props => {
                   onClick={() => setActiveIdx(idx)}
                 >
                   <span>{categoryObj.name}</span>
-                  <div>
-                    <DeleteOutlined className={styles.mr6} onClick={() => deleteHandler(categoryObj)} />
+                  <div className={styles.operateable}>
+                    <Popconfirm
+                      title="删除该分类"
+                      description="删除该分类后，它所关联的数据展示分类将会出现问题"
+                      onConfirm={() => deleteHandler(categoryObj)}
+                      okText="删除"
+                      cancelText="取消"
+                    >
+                      <DeleteOutlined className={styles.mr6} />
+                    </Popconfirm>
                     <EditOutlined className={styles.mr6} onClick={() => editHandler(categoryObj)} />
                     <PlusSquareOutlined onClick={() => newHandler(false)} />
                   </div>

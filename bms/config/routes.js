@@ -52,6 +52,12 @@ export default [
         component: "./categoryModule",
         access: "分类配置",
       },
+      {
+        path: "/configure/tofucube",
+        name: "豆腐块配置",
+        component: "./tofuModule",
+        access: "豆腐块配置",
+      }
     ],
   },
   {

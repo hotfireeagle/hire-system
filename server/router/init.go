@@ -48,10 +48,15 @@ func InitRouter(c *gin.Engine) {
 
 	// 配置管理模块
 	configureGorup := opeGroup.Group("/configure")
-	// 分类配置模块
+	// 配置管理-分类配置模块
 	categoryGroup := configureGorup.Group("/category")
 	categoryGroup.GET("/list", queryCategoryListRoute)
 	categoryGroup.POST("/new", createCategoryRoute)
 	categoryGroup.POST("/update", updateCategoryRoute)
 	categoryGroup.GET("/delete/:categoryId", deleteCategoryRoute)
+	// 配置管理-豆腐块配置模块
+	tofuGroup := configureGorup.Group("/tofucube")
+	tofuGroup.GET("/list", queryTofuListRoute)
+	tofuGroup.POST("/new", newTofuRoute)
+	tofuGroup.POST("/update", updateTofuRoute)
 }

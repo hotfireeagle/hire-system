@@ -56,6 +56,7 @@ func initPermission() {
 	newPermission("查看权限树列表", "权限管理", "/api/ope/permission/tree", "POST")
 
 	newPermission("分类配置", "配置管理", "", "")
+	newPermission("豆腐块配置", "配置管理", "", "")
 
 	newPermission("查看角色列表", "角色管理", "/api/ope/permission/role/list", "POST")
 	newPermission("新增角色", "角色管理", "/api/ope/permission/role/new", "POST")
@@ -80,6 +81,9 @@ func initPermission() {
 	newPermission("更新分类", "分类配置", "/api/ope/configure/category/update", "POST")
 	newPermission("删除分类", "分类配置", "/api/ope/configure/category/delete/:categoryId", "GET")
 
+	newPermission("获取豆腐块列表", "豆腐块配置", "/api/ope/configure/tofucube/list", "GET")
+	newPermission("新增豆腐块", "豆腐块配置", "/api/ope/configure/tofucube/new", "POST")
+	newPermission("更新豆腐块", "豆腐块配置", "/api/ope/configure/tofucube/update", "POST")
 }
 
 func initCasbin(dsn string) {
@@ -126,5 +130,6 @@ func initTable() {
 		&User{},
 		&Banner{},
 		&Category{},
+		&ToFuCube{},
 	)
 }
