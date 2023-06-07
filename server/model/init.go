@@ -49,9 +49,13 @@ func init() {
 func initPermission() {
 	newPermission("权限管理", "", "", "")
 	newPermission("banner管理", "", "", "")
+	newPermission("配置管理", "", "", "")
+
 	newPermission("角色管理", "权限管理", "", "")
 	newPermission("成员管理", "权限管理", "", "")
 	newPermission("查看权限树列表", "权限管理", "/api/ope/permission/tree", "POST")
+
+	newPermission("分类配置", "配置管理", "", "")
 
 	newPermission("查看角色列表", "角色管理", "/api/ope/permission/role/list", "POST")
 	newPermission("新增角色", "角色管理", "/api/ope/permission/role/new", "POST")
@@ -70,6 +74,12 @@ func initPermission() {
 	newPermission("新建banner", "banner管理", "/api/ope/banner/new", "POST")
 	newPermission("更新banner", "banner管理", "/api/ope/banner/update", "POST")
 	newPermission("删除banner", "banner管理", "/api/ope/banner/delete/:bannerId", "GET")
+
+	newPermission("获取分类列表", "分类配置", "/api/ope/configure/category/list", "GET")
+	newPermission("新建分类", "分类配置", "/api/ope/configure/category/new", "POST")
+	newPermission("更新分类", "分类配置", "/api/ope/configure/category/update", "POST")
+	newPermission("删除分类", "分类配置", "/api/ope/configure/category/delete/:categoryId", "GET")
+
 }
 
 func initCasbin(dsn string) {
@@ -115,5 +125,6 @@ func initTable() {
 		&Role{},
 		&User{},
 		&Banner{},
+		&Category{},
 	)
 }

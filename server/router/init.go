@@ -45,4 +45,13 @@ func InitRouter(c *gin.Engine) {
 	bannerGroup.POST("/new", createBannerRoute)
 	bannerGroup.POST("/update", updateBannerRoute)
 	bannerGroup.GET("/delete/:bannerId", deleteBannerRoute)
+
+	// 配置管理模块
+	configureGorup := opeGroup.Group("/configure")
+	// 分类配置模块
+	categoryGroup := configureGorup.Group("/category")
+	categoryGroup.GET("/list", queryCategoryListRoute)
+	categoryGroup.POST("/new", createCategoryRoute)
+	categoryGroup.POST("/update", updateCategoryRoute)
+	categoryGroup.GET("/delete/:categoryId", deleteCategoryRoute)
 }

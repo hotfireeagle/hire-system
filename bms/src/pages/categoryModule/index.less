@@ -1,0 +1,33 @@
+.rowItemCls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 5px;
+}
+.rowItemCls + .rowItemCls {
+  margin-top: 15px;
+}
+.activeRowItemCls {
+  background: #e6f4ff;
+}
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  :global {
+    .ant-card {
+      min-width: 300px;
+      margin-right: 15px;
+    }
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.smallFontCls {
+  font-size: 12px;
+}
+.mr6 {
+  margin-right: 6px;
+}

@@ -41,6 +41,20 @@ export default [
     access: "banner管理",
   },
   {
+    path: "/configure",
+    name: "配置管理",
+    icon: "smile",
+    access: "配置管理",
+    routes: [
+      {
+        path: "/configure/category",
+        name: "分类配置",
+        component: "./categoryModule",
+        access: "分类配置",
+      },
+    ],
+  },
+  {
     path: "/permissionModule",
     name: "权限管理",
     icon: "safety",
