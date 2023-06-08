@@ -1,5 +1,5 @@
 import { PageContainer } from "@ant-design/pro-components"
-import { Card, message, Empty, Popconfirm, Alert, } from "antd"
+import { Card, message, Empty, Popconfirm, Alert, Tooltip } from "antd"
 import { useState, useEffect } from "react"
 import request from "@/utils/request"
 import PropTypes from "prop-types"
@@ -155,9 +155,15 @@ const CategoryTree = props => {
                     >
                       <DeleteOutlined className={styles.mr6} />
                     </Popconfirm>
-                    <EditOutlined className={styles.mr6} onClick={() => editHandler(categoryObj)} />
-                    <PlusSquareOutlined className={styles.mr6} onClick={() => newHandler(false)} />
-                    <FireOutlined onClick={() => updateRecommendHandler(categoryObj)} />
+                    <Tooltip title="编辑">
+                      <EditOutlined className={styles.mr6} onClick={() => editHandler(categoryObj)} />
+                    </Tooltip>
+                    <Tooltip title="新增子类别">
+                      <PlusSquareOutlined className={styles.mr6} onClick={() => newHandler(false)} />
+                    </Tooltip>
+                    <Tooltip title="设置该类别为热门类别，将会显示在首页搜索栏下面">
+                      <FireOutlined onClick={() => updateRecommendHandler(categoryObj)} />
+                    </Tooltip>
                   </div>
                 </div>
               )
