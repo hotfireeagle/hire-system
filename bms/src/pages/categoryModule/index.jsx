@@ -1,11 +1,13 @@
 import { PageContainer } from "@ant-design/pro-components"
-import { Card, message, Empty, Popconfirm } from "antd"
+import { Card, message, Empty, Popconfirm, Alert, } from "antd"
 import { useState, useEffect } from "react"
 import request from "@/utils/request"
 import PropTypes from "prop-types"
-import { DeleteOutlined, EditOutlined, PlusSquareOutlined } from "@ant-design/icons"
+import { DeleteOutlined, EditOutlined, PlusSquareOutlined, FireOutlined } from "@ant-design/icons"
 import ModalForm from "@/components/modalForm"
 import styles from "./index.less"
+
+const recommendCategory = 1
 
 const CategoryModule = () => {
   const [reload, setReload] = useState(false)
@@ -20,6 +22,7 @@ const CategoryModule = () => {
   return (
     <PageContainer>
       <Card>
+        <Alert message="用橙色突出展示的表示这个分类属于热门搜索分类，将会出现在首页搜索栏下方的推荐关键词中" type="info" className={styles.mb15} />
         <CategoryTree
           level={1}
           categoryArr={categoryList}
@@ -111,6 +114,16 @@ const CategoryTree = props => {
     })
   }
 
+  // 更新推荐规则时触发
+  const updateRecommendHandler = categoryObject => {
+    const nextValue = 1 - Number(categoryObject.isRecommend)
+    const url = `/configure/category/updateRecommend/${categoryObject.id}/${nextValue}`
+    request(url, {}, "get").then(() => {
+      message.success("操作成功")
+      props.reloadHandler()
+    })
+  }
+
   if (level != 1 && !categoryArr?.length) {
     return null
   }
@@ -124,7 +137,11 @@ const CategoryTree = props => {
               return (
                 <div
                   key={categoryObj.id}
-                  className={`${styles.rowItemCls} ${activeIdx == idx ? styles.activeRowItemCls : ""}`}
+                  className={`
+                    ${styles.rowItemCls}
+                    ${activeIdx == idx ? styles.activeRowItemCls : ""}
+                    ${categoryObj.isRecommend === recommendCategory ? styles.recommendRowItemCls : ""}
+                  `}
                   onClick={() => setActiveIdx(idx)}
                 >
                   <span>{categoryObj.name}</span>
@@ -139,7 +156,8 @@ const CategoryTree = props => {
                       <DeleteOutlined className={styles.mr6} />
                     </Popconfirm>
                     <EditOutlined className={styles.mr6} onClick={() => editHandler(categoryObj)} />
-                    <PlusSquareOutlined onClick={() => newHandler(false)} />
+                    <PlusSquareOutlined className={styles.mr6} onClick={() => newHandler(false)} />
+                    <FireOutlined onClick={() => updateRecommendHandler(categoryObj)} />
                   </div>
                 </div>
               )

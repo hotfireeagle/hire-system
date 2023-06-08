@@ -54,6 +54,7 @@ func InitRouter(c *gin.Engine) {
 	categoryGroup.POST("/new", createCategoryRoute)
 	categoryGroup.POST("/update", updateCategoryRoute)
 	categoryGroup.GET("/delete/:categoryId", deleteCategoryRoute)
+	categoryGroup.GET("/updateRecommend/:categoryId/:recommendValue", updateCategoryIsRecommendRoute)
 	// 配置管理-豆腐块配置模块
 	tofuGroup := configureGorup.Group("/tofucube")
 	tofuGroup.GET("/list", queryTofuListRoute)

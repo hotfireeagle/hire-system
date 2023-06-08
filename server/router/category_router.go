@@ -2,6 +2,7 @@ package router
 
 import (
 	"hire/model"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,10 +24,11 @@ func queryCategoryListRoute(c *gin.Context) {
 			topIds = append(topIds, cate.Id)
 		}
 		cateItem := &model.CategoryTreeNode{
-			Id:       cate.Id,
-			ParentId: cate.ParentId,
-			Name:     cate.Name,
-			Children: make([]*model.CategoryTreeNode, 0),
+			Id:          cate.Id,
+			ParentId:    cate.ParentId,
+			Name:        cate.Name,
+			IsRecommend: cate.IsRecommend,
+			Children:    make([]*model.CategoryTreeNode, 0),
 		}
 		id2categoryMap[cate.Id] = cateItem
 	}
@@ -77,6 +79,25 @@ func deleteCategoryRoute(c *gin.Context) {
 	id := c.Param("categoryId")
 
 	if err := model.DeleteCategory(id); err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, "")
+}
+
+func updateCategoryIsRecommendRoute(c *gin.Context) {
+	categoryId := c.Param("categoryId")
+	recommendStringValue := c.Param("recommendValue")
+	intRecommendValue, err := strconv.Atoi(recommendStringValue)
+
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	err = model.UpdateCategoryRecommendValue(categoryId, intRecommendValue)
+	if err != nil {
 		errRes(c, err.Error())
 		return
 	}

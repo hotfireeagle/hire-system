@@ -80,6 +80,7 @@ func initPermission() {
 	newPermission("新建分类", "分类配置", "/api/ope/configure/category/new", "POST")
 	newPermission("更新分类", "分类配置", "/api/ope/configure/category/update", "POST")
 	newPermission("删除分类", "分类配置", "/api/ope/configure/category/delete/:categoryId", "GET")
+	newPermission("设置分类是否推荐", "分类配置", "/api/ope/configure/category/updateRecommend/:categoryId/:recommendValue", "GET")
 
 	newPermission("获取豆腐块列表", "豆腐块配置", "/api/ope/configure/tofucube/list", "GET")
 	newPermission("新增豆腐块", "豆腐块配置", "/api/ope/configure/tofucube/new", "POST")
