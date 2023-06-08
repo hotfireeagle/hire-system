@@ -14,6 +14,10 @@ func InitRouter(c *gin.Engine) {
 	userGroup.POST("/login", userLoginRouter)
 	userGroup.GET("/detail", loginValidator(), fetchUserDetailRouter)
 
+	webGroup.GET("/bannerList", queryAllBannerRoute)
+
+	// --------------------- END ------------------------- //
+
 	// 后台管理系统用户模块
 	opeUserGroup := opeGroup.Group("/user")
 	opeUserGroup.POST("/new", opeUserRegisterRouter)

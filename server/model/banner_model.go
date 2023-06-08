@@ -83,3 +83,7 @@ func QueryBannerList(queryData *QueryBannerListRequestBody) (QueryBannerListResp
 
 	return res, nil
 }
+
+func QueryAllBanners() (banners []Banner, err error) {
+	return banners, DB.Where("delete_time is null").Find(&banners).Error
+}

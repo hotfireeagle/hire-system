@@ -21,6 +21,16 @@ func queryBannerListRoute(c *gin.Context) {
 	okRes(c, res)
 }
 
+func queryAllBannerRoute(c *gin.Context) {
+	allBanners, err := model.QueryAllBanners()
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, allBanners)
+}
+
 func createBannerRoute(c *gin.Context) {
 	banner := new(model.Banner)
 	if validate(c, banner) != nil {
