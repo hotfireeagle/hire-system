@@ -1,7 +1,6 @@
 const Header = () => {
   return (
-    <header>
-      this is header
+    <header className="px-14 py-[20px] border-b border-slate-900/10">
     </header>
   )
 }
