@@ -104,3 +104,13 @@ func updateCategoryIsRecommendRoute(c *gin.Context) {
 
 	okRes(c, "")
 }
+
+func getRecommendCategoryRoute(c *gin.Context) {
+	list, err := model.SelectRecommendCategoryList()
+	if err != nil {
+		errRes(c, err.Error())
+		return
+	}
+
+	okRes(c, list)
+}

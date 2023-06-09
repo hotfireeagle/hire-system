@@ -9,12 +9,13 @@ func InitRouter(c *gin.Engine) {
 	opeGroup := apiGroup.Group("/ope", loginValidator(), permissionValidator()) // 后台管理系统路由路径 TODO: permissionCheck中间件
 
 	// 前台网页用户相关接口
+	webGroup.GET("/bannerList", queryAllBannerRoute)
+	webGroup.GET("/recommendCategory", getRecommendCategoryRoute)
+
 	userGroup := webGroup.Group("/user")
 	userGroup.POST("/new", newUserRouter)
 	userGroup.POST("/login", userLoginRouter)
 	userGroup.GET("/detail", loginValidator(), fetchUserDetailRouter)
-
-	webGroup.GET("/bannerList", queryAllBannerRoute)
 
 	// --------------------- END ------------------------- //
 

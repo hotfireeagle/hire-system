@@ -49,3 +49,7 @@ func SelectAllCategory() (categoryList []Category, err error) {
 func UpdateCategoryRecommendValue(id string, recommendValue int) error {
 	return DB.Model(&Category{}).Where("id = ?", id).Update("IsRecommend", recommendValue).Error
 }
+
+func SelectRecommendCategoryList() (categoryList []Category, err error) {
+	return categoryList, DB.Where("delete_time is null and is_recommend = ?", IsRecommendVal).Find(&categoryList).Error
+}
