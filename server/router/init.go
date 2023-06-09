@@ -65,4 +65,7 @@ func InitRouter(c *gin.Engine) {
 	tofuGroup.GET("/list", queryTofuListRoute)
 	tofuGroup.POST("/new", newTofuRoute)
 	tofuGroup.POST("/update", updateTofuRoute)
+
+	commonGroup := opeGroup.Group("/common")
+	commonGroup.POST("/upload", uploadRoute)
 }

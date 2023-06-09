@@ -2,12 +2,16 @@ package main
 
 import (
 	"hire/router"
+	"hire/util"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+
+	r.StaticFS("/api/static", http.Dir(util.Static_dir))
 
 	// r.Use(cors.New(cors.Config{
 	// 	AllowOrigins:     []string{"http://localhost:3009"},

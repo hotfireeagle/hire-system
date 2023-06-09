@@ -53,7 +53,7 @@ const TofuModule = () => {
   const schema = [
     {
       label: "图片",
-      type: "input",
+      type: "upload",
       key: "url",
       required: true,
     },
@@ -61,6 +61,7 @@ const TofuModule = () => {
       label: "跳转链接",
       type: "input",
       key: "jumpUrl",
+      required: true,
     }
   ]
 

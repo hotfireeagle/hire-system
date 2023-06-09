@@ -24,6 +24,7 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons"
 import PermissionDFSTree from "./unit/permissionTree"
+import LocalUpload from "./unit/upload"
 
 const { SHOW_PARENT } = TreeSelect
 const type = {
@@ -48,6 +49,27 @@ const rules = (item) => {
     rules = rules.concat(item.rules)
   }
   return rules
+}
+
+// 上传图片
+const UploadElem = (v, form) => {
+  let Max = v?.max ? v?.max : 1
+  let maxUploadSize = v?.maxSize || 5
+  let accept = v?.accept || "image/*,.gif"
+  let needEmit = v?.needEmit || false
+
+  return (
+    <RenderShell v={v} form={form} key={v.key}>
+      <LocalUpload
+        maxSize={maxUploadSize}
+        max={Max}
+        disabled={v?.disabled}
+        uploadDir={v.dirName}
+        accept={accept}
+        needEmit={needEmit}
+      />
+    </RenderShell>
+  )
 }
 
 //输入框
@@ -458,6 +480,9 @@ const renderFormItem = (list, form) => {
       }
       if (item.type === "textArea") {
         formList.push(textAreaElem(item, form))
+      }
+      if (item.type === "upload") {
+        formList.push(UploadElem(item, form));
       }
       if (item.type === "datePicker") {
         formList.push(datePickerElem(item, form))
