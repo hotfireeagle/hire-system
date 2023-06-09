@@ -1,4 +1,5 @@
 import { get } from "@/util/request"
+import Carousel from "@/component/carousel"
 import styles from "./page.module.css"
 
 export default async function Home() {
@@ -7,14 +8,7 @@ export default async function Home() {
 
   return (
     <div className={styles.pageContainer}>
-      <div className="slider">
-        {/* {
-          banners.map(bannerObj => (
-            <img src={bannerObj.url} id={bannerObj.id} className="slider-item" />
-          ))
-        } */}
-      </div>
-      {/* <img src={banners[0].url} /> */}
+      <Carousel imgs={banners} />
     </div>
   )
 }

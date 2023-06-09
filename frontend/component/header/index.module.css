@@ -1,0 +1,63 @@
+.headercls {
+  height: 50px;
+  background: #202329;
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  position: sticky;
+  top: 0;
+}
+.inner {
+  width: 1180px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.inner::before {
+  content: "";
+  height: 49px;
+  width: 726px;
+  display: block;
+  position: absolute;
+  left: 286px;
+  top: 0;
+  z-index: -1;
+  background: url(https://img.bosszhipin.com/static/file/2023/g3f9o7qs9z1679895399114.png) 0 0/auto 49px no-repeat;
+}
+.inner .logo {
+  color: #00bebd;
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 70px;
+}
+.inner a:hover {
+  color: #00bebd;
+  transition: all linear .2s;
+}
+.menuWrapper a {
+  font-size: 14px;
+  color: #fff;
+  margin-right: 26px;
+}
+.menuWrapper a:last-child {
+  margin-right: 0;
+}
+.flexg {
+  flex-grow: 1;
+}
+.rightBtnContainer a {
+  font-size: 14px;
+  color: #fff;
+  margin-right: 26px;
+}
+.logincls {
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  height: 26px;
+  line-height: 26px;
+  padding: 4px 11px;
+  min-width: 0;
+  margin-left: 10px;
+  border: 1px #5dd5c8 solid;
+  cursor: pointer;
+}
