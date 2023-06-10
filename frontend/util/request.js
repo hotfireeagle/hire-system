@@ -4,7 +4,7 @@ const err = 0
 
 export const get = url => {
   const apiPath = host + url
-  return fetch(apiPath).then(response => {
+  return fetch(apiPath, { next: { revalidate: 0 } }).then(response => {
     return response.json()
   }).then(obj => {
     if (obj.code === err) {

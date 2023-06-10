@@ -11,6 +11,7 @@ func InitRouter(c *gin.Engine) {
 	// 前台网页用户相关接口
 	webGroup.GET("/bannerList", queryAllBannerRoute)
 	webGroup.GET("/recommendCategory", getRecommendCategoryRoute)
+	webGroup.GET("/categoryList", queryCategoryListRoute)
 
 	userGroup := webGroup.Group("/user")
 	userGroup.POST("/new", newUserRouter)

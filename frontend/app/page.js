@@ -1,5 +1,7 @@
+import { Suspense } from "react"
 import { get } from "@/util/request"
 import Search from "@/component/search"
+import CategoryTree from "@/component/categoryTree"
 import styles from "./page.module.css"
 
 export default async function Home() {
@@ -22,6 +24,12 @@ export default async function Home() {
               <span className={styles.tagCls} key={cobj.id}>{cobj.name}</span>
             ))
           }
+        </div>
+
+        <div>
+          <Suspense fallback={<h1>loading</h1>}>
+            <CategoryTree />
+          </Suspense>
         </div>
       </div>
     </div>
