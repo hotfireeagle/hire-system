@@ -47,6 +47,7 @@ func queryCategoryListRoute(c *gin.Context) {
 	okRes(c, answer)
 }
 
+// FIXME: same name with some deleted category will cause an error
 func createCategoryRoute(c *gin.Context) {
 	categoryObj := new(model.Category)
 	if validate(c, categoryObj) != nil {
@@ -78,7 +79,9 @@ func updateCategoryRoute(c *gin.Context) {
 func deleteCategoryRoute(c *gin.Context) {
 	id := c.Param("categoryId")
 
-	if err := model.DeleteCategory(id); err != nil {
+	needDeleteIds := model.FindChildrenNodes(id)
+
+	if err := model.DeleteCategoryIdBatchOperation(needDeleteIds); err != nil {
 		errRes(c, err.Error())
 		return
 	}

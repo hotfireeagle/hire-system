@@ -43,7 +43,7 @@ func DeleteCategory(id string) error {
 }
 
 func SelectAllCategory() (categoryList []Category, err error) {
-	return categoryList, DB.Where("delete_time is null").Find(&categoryList).Error
+	return categoryList, DB.Find(&categoryList).Error // gorm会自动加
 }
 
 func UpdateCategoryRecommendValue(id string, recommendValue int) error {
@@ -52,4 +52,28 @@ func UpdateCategoryRecommendValue(id string, recommendValue int) error {
 
 func SelectRecommendCategoryList() (categoryList []Category, err error) {
 	return categoryList, DB.Where("delete_time is null and is_recommend = ?", IsRecommendVal).Find(&categoryList).Error
+}
+
+// 找出一个节点的所有子节点，递归找即可
+func FindChildrenNodes(parentId string) []string {
+	childrenIds := make([]string, 0)
+
+	var find func(id string)
+	find = func(id string) {
+		var ids []string
+		childrenIds = append(childrenIds, id)
+		DB.Model(&Category{}).Where("parent_id = ?", id).Pluck("id", &ids)
+
+		for _, id := range ids {
+			find(id)
+		}
+	}
+
+	find(parentId)
+
+	return childrenIds
+}
+
+func DeleteCategoryIdBatchOperation(ids []string) error {
+	return DB.Delete(&Category{}, ids).Error
 }
