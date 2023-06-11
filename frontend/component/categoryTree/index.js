@@ -1,11 +1,13 @@
 "use client"
-import { use, cache } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { get } from "@/util/request"
 import styles from "./index.module.css"
 
 const CategoryTree = () => {
-  const fetchCategoryList = () => get("/categoryList")
-  const data = use(cache(fetchCategoryList)())
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["categoryList"],
+    queryFn: () => get("/categoryList"),
+  })
 
   console.log("data is >>>", data)
 

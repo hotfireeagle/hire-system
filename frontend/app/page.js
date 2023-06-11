@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import { get } from "@/util/request"
 import Search from "@/component/search"
 import CategoryTree from "@/component/categoryTree"
@@ -26,10 +25,8 @@ export default async function Home() {
           }
         </div>
 
-        <div>
-          <Suspense fallback={<h1>loading</h1>}>
-            <CategoryTree />
-          </Suspense>
+        <div className={styles.centerContainer}>
+          <CategoryTree />
         </div>
       </div>
     </div>
