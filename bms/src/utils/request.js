@@ -4,7 +4,7 @@ import { tokenDB } from "./localStorage"
 import { history } from "@umijs/max"
 
 const client = axios.create({
-  baseURL: "/api/ope",
+  baseURL: "http://localhost:8081/api/ope",
   withCredentials: true,
   timeout: 60 * 1000,
 })
