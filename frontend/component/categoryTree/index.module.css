@@ -10,6 +10,15 @@
   border-radius: 12px;
   padding: 10px 5px;
   width: 380px;
+  cursor: pointer;
+}
+.gap {
+  width: 10px;
+  position: absolute;
+  left: 380px;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
 }
 .row {
   display: flex;
@@ -57,6 +66,9 @@
   padding: 16px;
   padding-bottom: 0;
   box-shadow: 0 10px 40px 0 rgba(153,153,153,.2);
+}
+.right2 {
+  padding: 0;
 }
 .topname {
   font-size: 16px;

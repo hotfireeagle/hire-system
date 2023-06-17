@@ -12,6 +12,7 @@ func InitRouter(c *gin.Engine) {
 	webGroup.GET("/bannerList", queryAllBannerRoute)
 	webGroup.GET("/recommendCategory", getRecommendCategoryRoute)
 	webGroup.GET("/categoryList", queryCategoryListRoute)
+	webGroup.GET("/homeToufuList", queryTofuListRoute)
 
 	userGroup := webGroup.Group("/user")
 	userGroup.POST("/new", newUserRouter)

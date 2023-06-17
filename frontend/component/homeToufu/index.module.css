@@ -1,0 +1,28 @@
+.toufuWrapper {
+  height: 100%;
+  position: relative;
+}
+.leftcls {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+.rightpart {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4px;
+}
+.rt {
+  height: calc(50% - 4px);
+  margin-bottom: 4px;
+}
+.rb {
+  height: 50%;
+}

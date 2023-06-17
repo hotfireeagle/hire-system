@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { get } from "@/util/request"
+import HomeToufu from "@/component/homeToufu"
 import styles from "./index.module.css"
 
 const CategoryTree = () => {
@@ -14,12 +15,12 @@ const CategoryTree = () => {
 
   const activeCategoryObj = data[activeIdx]
   return (
-    <div
-      className={styles.container}
-      onMouseEnter={() => setShowExpand(true)}
-      onMouseLeave={() => setShowExpand(false)}
-    >
-      <section className={styles.left}>
+    <div className={styles.container}>
+      <section
+        className={styles.left}
+        onMouseEnter={() => setShowExpand(true)}
+        onMouseLeave={() => setShowExpand(false)}
+      >
         {
           data.map((obj, idx) => {
             return (
@@ -38,13 +39,24 @@ const CategoryTree = () => {
           })
         }
       </section>
+
+      <div
+        className={styles.gap}
+        onMouseEnter={() => setShowExpand(true)}
+        onMouseLeave={() => setShowExpand(false)}
+      />
+
       {
         activeCategoryObj && showExpand ? (
-          <div className={styles.right}>
+          <div
+            className={styles.right}
+            onMouseEnter={() => setShowExpand(true)}
+            onMouseLeave={() => setShowExpand(false)}
+          >
             <div className={styles.topname}>{activeCategoryObj.name}</div>
             {
               activeCategoryObj.children.map(cateObj => (
-                <div className={styles.fullItem} id={cateObj.id}>
+                <div className={styles.fullItem} key={cateObj.id}>
                   <div className={styles.secondName}>{cateObj.name}</div>
                   <div className={styles.textContainer}>
                     {
@@ -57,7 +69,13 @@ const CategoryTree = () => {
               ))
             }
           </div>
-        ) : null
+        ) : (
+          <div
+            className={`${styles.right} ${styles.right2}`}
+          >
+            <HomeToufu />
+          </div>
+        )
       }
     </div>
   )
