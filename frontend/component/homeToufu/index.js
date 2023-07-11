@@ -11,16 +11,16 @@ const HomeToufu = () => {
 
   const base = "http://localhost:8081" // FIXME: change to backend care
 
-  const leftImgSrc = base + homeTouFuList?.[0]?.url
-  const rightTopImgSrc = base + homeTouFuList?.[1]?.url
-  const rightBottomImgSrc = base + homeTouFuList?.[2]?.url
+  const leftImgSrc = "url(" + base + homeTouFuList?.[0]?.url + ")"
+  const rightTopImgSrc = "url(" + base + homeTouFuList?.[1]?.url + ")"
+  const rightBottomImgSrc = "url(" + base + homeTouFuList?.[2]?.url + ")"
 
   return (
     <div className={styles.toufuWrapper}>
-      <img src={leftImgSrc} className={styles.leftcls} />
+      <div style={{ backgroundImage: leftImgSrc }} className={styles.leftcls} />
       <div className={styles.rightpart}>
-        <img src={rightTopImgSrc} className={styles.rt} />
-        <img src={rightBottomImgSrc} className={styles.rb} />
+        <div style={{ backgroundImage: rightTopImgSrc }} className={styles.rt} />
+        <div style={{ backgroundImage: rightBottomImgSrc }} className={styles.rb} />
       </div>
     </div>
   )

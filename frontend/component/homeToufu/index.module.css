@@ -9,6 +9,8 @@
   top: 0;
   bottom: 0;
   left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .rightpart {
   position: absolute;
@@ -22,7 +24,11 @@
 .rt {
   height: calc(50% - 4px);
   margin-bottom: 4px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .rb {
   height: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }

@@ -11,6 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="zh">
+      <meta name="viewport" content="width=1440" />
       <body>
         <TanStore>
           <div className="fakepinAppContainer">
