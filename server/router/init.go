@@ -19,6 +19,9 @@ func InitRouter(c *gin.Engine) {
 	userGroup.POST("/login", userLoginRouter)
 	userGroup.GET("/detail", loginValidator(), fetchUserDetailRouter)
 
+	registerCompanyGroup := webGroup.Group("/registerCompany")
+	registerCompanyGroup.POST("/new", NewCompanyRoute)
+
 	// --------------------- END ------------------------- //
 
 	// 后台管理系统用户模块

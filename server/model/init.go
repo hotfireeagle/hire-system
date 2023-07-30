@@ -132,5 +132,6 @@ func initTable() {
 		&Banner{},
 		&Category{},
 		&ToFuCube{},
+		&Company{},
 	)
 }
