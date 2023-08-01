@@ -22,7 +22,7 @@ const CategoryModule = () => {
   return (
     <PageContainer>
       <Card>
-        <Alert message="用橙色突出展示的表示这个分类属于热门搜索分类，将会出现在首页搜索栏下方的推荐关键词中" type="info" className={styles.mb15} />
+        <Alert message="橙色：热门搜索分类，将会出现在首页搜索栏下方的推荐关键词中" type="info" className={styles.mb15} />
         <CategoryTree
           level={1}
           categoryArr={categoryList}

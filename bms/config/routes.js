@@ -33,6 +33,7 @@ export default [
     icon: "smile",
     component: "./homepage",
   },
+  // TODO: 移到配置管理路由下
   {
     path: "/bannerModule",
     name: "横幅配置",
@@ -43,7 +44,7 @@ export default [
   {
     path: "/configure",
     name: "配置管理",
-    icon: "smile",
+    icon: "control",
     access: "配置管理",
     routes: [
       {
