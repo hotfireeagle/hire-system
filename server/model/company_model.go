@@ -45,3 +45,15 @@ type Company struct {
 func NewCompany(companyObj *Company) error {
 	return DB.Create(companyObj).Error
 }
+
+// 更新公司信息的时候触发
+func ModifyCompany(compantObj *Company) error {
+	return DB.Model(compantObj).Select(
+		"LongZiCode",
+		"CompanyLocationCode",
+		"BusinessType",
+		"EmployerCount",
+		"CompanyLogo",
+		"CompanyDesc",
+	).Updates(compantObj).Where("id = ?", compantObj.Id).Error
+}
