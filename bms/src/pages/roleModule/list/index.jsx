@@ -2,7 +2,7 @@
  * 角色列表数据
  */
 import { PageContainer } from "@ant-design/pro-components"
-import { Button, Card, message } from "antd"
+import { Button, Card, message, Popconfirm } from "antd"
 import { history } from "@umijs/max"
 import SearchList from "@/components/searchList"
 import { useState } from "react"
@@ -41,7 +41,13 @@ const RoleList = () => {
         return (
           <div>
             <a style={{ marginRight: 15 }} onClick={seeDetail} href="#">查看详情</a>
-            <a onClick={delRoleHandler} href="#">删除</a>
+            <Popconfirm
+              title="提示"
+              description="确认删除吗?"
+              onConfirm={delRoleHandler}
+            >
+              <a href="#">删除</a>
+            </Popconfirm>
           </div>
         )
       }
